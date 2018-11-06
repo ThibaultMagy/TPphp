@@ -106,6 +106,7 @@ body{
 	float:left ;
 	width: 79%;
 	margin-left: 5px;
+	padding : 0px 0px 10px;
 	text-align: center;
 	min-height:380px;
 	color:#222222;
@@ -186,4 +187,13 @@ input{
 	font-size: 15px;
 	width: 150px;
 	height: 40px;
+}
+
+.gauche, .droite{
+	display: inline-block;
+	text-align: justify;
+}
+
+.rdButton{
+	display: inline-block;
 }

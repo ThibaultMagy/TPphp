@@ -1,15 +1,28 @@
+<?php
+$db = new myPdo();
+$manger = new VilleManager($db);
+
+ ?>
+
+
+
+
 <h1>Ajouter une ville</h1>
 
-<form name="form" method="post">
-  <h2>Nom : </h2>
-  <input type="text" name="nomVille"></input>
-  <input type="submit" name="sub" onclick="form.submit()" class="subButton"></input>
-  <?php
-    include('classes/Ville.class.php');
-    if(isset($_POST["nomVille"])){
-      $nomVille = $_POST["nomVille"];
-      $ville = new Ville();
-      $ville->setNom($nomVille);
-    }
+<?php if (empty($_POST["vil_nom"])) { ?>
+  <form class="" action="#" method="post">
+    <label> Nom : </label>
+    <input type="text" name="vil_nom" value="" required>
+    <input class="BoutonValider" type="submit" value="Valider">
+  </form>
+<?php } else {
+
+  $ville = new Ville($_POST);
+  $manager->add($ville);
   ?>
-</form>
+
+  <p>
+      <img src="image/valid.png" alt="valide" title="valide">
+        La ville "<b> <?php echo $_POST["vil_nom"]?></b> a été ajoutée
+      </p>
+<?php  }  ?>

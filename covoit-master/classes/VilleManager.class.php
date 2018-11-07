@@ -31,6 +31,7 @@ class VilleManager{
 				$req->closeCursor();
 			}
 
+			
 
 			public function getNbVille(){
 				$sql='SELECT count(*) as TOTAL FROM ville';

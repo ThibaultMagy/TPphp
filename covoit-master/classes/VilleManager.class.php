@@ -8,15 +8,15 @@ class VilleManager{
 
 	public function add($nomVille){
 		$requete = $this->db->prepare(
-								'INSERT INTO ville(vil_nom_)VALUES (:vil_nom);');
+								'INSERT INTO ville (vil_nom) VALUES (:vil_nom);');
 
 								$requete->bindValue(':vil_nom',$nomVille->getVilNom(),
 								PDO::PARAM_STR);
 
 								$retour = $requete->execute();
 								return $retour;
-			)
 
+		}
 
 			public function getAllVilles(){
 				$listeVilles = array();
@@ -52,4 +52,3 @@ class VilleManager{
 
 			}
 	}
-}

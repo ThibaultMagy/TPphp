@@ -1,6 +1,6 @@
 <?php
 $db = new myPdo();
-$manger = new VilleManager($db);
+$manager = new VilleManager($db);
 
  ?>
 

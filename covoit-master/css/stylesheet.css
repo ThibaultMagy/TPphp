@@ -187,3 +187,7 @@ input{
 	width: 150px;
 	height: 40px;
 }
+
+td{
+	border: black solid 1px;
+}

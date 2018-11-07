@@ -13,7 +13,7 @@ $manager = new VilleManager($db);
   <form class="" action="#" method="post">
     <label> Nom : </label>
     <input type="text" name="vil_nom" value="" required>
-    <input class="BoutonValider" type="submit" value="Valider">
+    <input class="subButton" type="submit" value="Valider">
   </form>
 <?php } else {
 

@@ -1,11 +1,7 @@
 <?php
-$db = new myPdo();
-$manager = new VilleManager($db);
-
+  $db = new myPdo();
+  $manager = new VilleManager($db);
  ?>
-
-
-
 
 <h1>Ajouter une ville</h1>
 

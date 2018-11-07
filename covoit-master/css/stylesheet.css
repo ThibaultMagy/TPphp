@@ -188,6 +188,7 @@ input{
 	height: 40px;
 }
 
-td{
+table td{
 	border: black solid 1px;
+	text-align: right;
 }

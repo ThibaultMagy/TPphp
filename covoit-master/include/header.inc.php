@@ -15,7 +15,7 @@
 <link rel="stylesheet" type="text/css" href="css/stylesheet.css" />
 </head>
 	<body>
-	<div id="header">	
+	<div id="header">
 		<div id="entete">
 			<div class="colonne">
 				<a href="index.php?page=0">
@@ -25,10 +25,8 @@
 			<div class="colonne">
 				Covoiturage de l'IUT,<br />Partagez plus que votre véhicule !!!
 			</div>
-			</div>
 			<div id="connect">
 				<a href="index.php?page=11">Connexion</a>
 			</div>
+		</div>
 	</div>
-	
-

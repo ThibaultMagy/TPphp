@@ -8,10 +8,14 @@ class PersonneManager{
 
 	public function add($nomPersonne){
 		$requete = $this->db->prepare(
-								'INSERT INTO personne (per_nom) VALUES (:per_nom);'
+								'INSERT INTO personne (per_nom, per_prenom, per_tel, per_mail, per_login, per_pwd) VALUES (:per_nom, :per_prenom, :per_tel, :per_mail, :per_login, :per_pwd);'
 							);
-								$requete->bindValue(':per_nom',$nomPersonne->getPerNom(),
-								PDO::PARAM_STR);
+								$requete->bindValue(':per_nom',$nomPersonne->getPerNom(), PDO::PARAM_STR);
+								$requete->bindValue(':per_prenom',$nomPersonne->getPerPrenom(), PDO::PARAM_STR);
+								$requete->bindValue(':per_tel',$nomPersonne->getPerTel(), PDO::PARAM_STR);
+								$requete->bindValue(':per_mail',$nomPersonne->getPerMail(), PDO::PARAM_STR);
+								$requete->bindValue(':per_login',$nomPersonne->getPerLogin(), PDO::PARAM_STR);
+								$requete->bindValue(':per_pwd',$nomPersonne->getPerPwd(), PDO::PARAM_STR);
 								$retour = $requete->execute();
 								return $retour;
 		}
@@ -45,7 +49,7 @@ class PersonneManager{
 				return $retour['pern_nom'];
 			}
 
-			public function getPerNomPreId($id){
+			public function getPerPrenomId($id){
 				$sql = $this->db->prepare('SELECT * FROM personne WHERE per_num='.$id);
 				$sql->bindValue(' :num, $id,PDO::PARAM_STR');
 				$sql->execute();

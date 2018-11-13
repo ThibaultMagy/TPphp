@@ -5,8 +5,8 @@
 <h1>Ajouter une personne</h1>
 
 <?php if (empty($_POST["per_nom"]) && empty($_POST["per_prenom"]) && empty($_POST["per_tel"]) && empty($_POST["per_mail"])
-      && empty($_POST["per_login"]) && empty($_POST["per_pwd"])) { ?>
-  <form class="" action="#" method="post">
+      && empty($_POST["per_login"]) && empty($_POST["per_pwd"])) {
+        echo '<form class="" action="" method="post">
     <table>
       <tr>
         <td>
@@ -35,21 +35,22 @@
         </td>
         <td>
           <label> Mot de passe : </label>
-          <input type="text" name="per_pwd" value="" required>
+          <input type="password" name="per_pwd" value="" required>
         </td>
       </tr>
     </table>
-    <input type="radio" name="categorie" value="etu" id="etu"/><label for="etu">Étudiant</label>
-    <input type="radio" name="categorie" value="perso" id="perso"/><label for="perso">Personnel</label>
+    <input type="radio" name="categorie" value="etu" id="etu" required><label for="etu">Étudiant</label>
+    <input type="radio" name="categorie" value="perso" id="perso" required><label for="perso">Personnel</label>
     <input class="subButton" type="submit" value="Valider">
   </form>
-
-<?php } else {
-  $personne = new Personne($_POST);
-  $manager->add($personne);
+  ';
+  }
+  else {
+    $personne = new Personne($_POST);
+    $manager->add($personne);
   ?>
   <p>
-      <img src="image/valid.png" alt="valide" title="valide">
-        La  "<b> <?php echo $_POST["vil_nom"]?></b> a été ajoutée
+    <img src="image/valid.png" alt="valide" title="valide">
+    La  "<b> <?php echo $_POST["per_prenom"]?></b> a été ajoutée
   </p>
 <?php  }  ?>

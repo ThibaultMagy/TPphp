@@ -189,6 +189,6 @@ input{
 }
 
 table td{
-	border: black solid 1px;
-	text-align: right;
+	/*border: black solid 1px;
+	text-align: right;*/
 }

@@ -34,4 +34,7 @@ class EtudiantManager{
 			$retour=$sql->fetch(PDO::FETCH_ASSOC);
 			return $retour['vil_nom'];
 		}
+
+		//choisir dep_num selon dep_nom
+		//choisir div_num selon div_nom (annéee)
 }

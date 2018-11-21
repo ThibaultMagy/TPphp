@@ -4,8 +4,8 @@
  ?>
 <h1>Ajouter une personne</h1>
 
-<?php if (empty($_POST["per_nom"]) && empty($_POST["per_prenom"]) && empty($_POST["per_tel"]) && empty($_POST["per_mail"])
-      && empty($_POST["per_login"]) && empty($_POST["per_pwd"])) {
+<?php if (empty($_POST["per_nom"]) || empty($_POST["per_prenom"]) || empty($_POST["per_tel"]) || empty($_POST["per_mail"])
+      || empty($_POST["per_login"]) || empty($_POST["per_pwd"])) {
         echo '<form class="" action="" method="post">
     <table>
       <tr>
@@ -45,7 +45,65 @@
   </form>
   ';
   }
-  else {
+  elseif(!empty($_POST["per_nom"]) && !empty($_POST["per_prenom"]) && !empty($_POST["per_tel"]) && !empty($_POST["per_mail"])
+        && !empty($_POST["per_login"]) && !empty($_POST["per_pwd"]) && isset($_POST['etu'])){
+    echo'
+    <form>
+      <label>Année</label><SELECT name="annee">
+      <?php
+      while($row=mysqli_fetch_array($res,MYSQL_ASSOC)){?>
+        <OPTION value="<?php echo $row['div_nom']; ?>">
+        <?php
+        echo $row['div_nom'];
+        ?>
+        </OPTION>
+      <?php}?>
+      </SELECT>
+
+      <label>Département</label><SELECT name="dep">
+      <?php
+      while($row=mysqli_fetch_array($res,MYSQL_ASSOC)){?>
+        <OPTION value="<?php echo $row['dep_nom']; ?>">
+        <?php
+        echo $row['dep_nom'];
+        ?>
+        </OPTION>
+      <?php}?>
+      </SELECT>
+      <input class="subButton" type="submit" value="Valider">
+    </form>
+    '
+  }
+  elseif(!empty($_POST["per_nom"]) && !empty($_POST["per_prenom"]) && !empty($_POST["per_tel"]) && !empty($_POST["per_mail"])
+        && !empty($_POST["per_login"]) && !empty($_POST["per_pwd"]) && isset($_POST['perso'])){
+    echo'
+    <form>
+      <label>Téléphone professionel : </label><SELECT name="tel">
+      <?php
+      while($row=mysqli_fetch_array($res,MYSQL_ASSOC)){?>
+        <OPTION value="<?php echo $row['per_tel']; ?>">
+        <?php
+        echo $row['per_tel'];
+        ?>
+        </OPTION>
+      <?php}?>
+      </SELECT>
+
+      <label>Fonction : </label><SELECT name="fonction">
+      <?php
+      while($row=mysqli_fetch_array($res,MYSQL_ASSOC)){?>
+        <OPTION value="<?php echo $row['fon_libelle']; ?>">
+        <?php
+        echo $row['fon_libelle'];
+        ?>
+        </OPTION>
+      <?php}?>
+      </SELECT>
+      <input class="subButton" type="submit" value="Valider">
+    </form>
+    '
+  }
+  else() {
     $personne = new Personne($_POST);
     $manager->add($personne);
   ?>

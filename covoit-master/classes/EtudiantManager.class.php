@@ -6,12 +6,12 @@ class EtudiantManager{
 		 $this->db = $db;
 	}
 
-	public function add(lastInsertId()){
+	public function add(){
 		$li = lastInsertedId();
 		$requete = $this->db->prepare(
 								'INSERT INTO personne (dep_num, div_num) VALUES (:dep_num, :div_num);'
 							);
-								$requete->bindValue(':dep_num',->$li, PDO::PARAM_STR);
+								$requete->bindValue(':dep_num',$li, PDO::PARAM_STR);
 								$requete->bindValue(':div_num',$li->getDivNum(), PDO::PARAM_STR);
 								$retour = $requete->execute();
 								return $retour;

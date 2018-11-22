@@ -1,6 +1,11 @@
 <?php
   $db = new myPdo();
-  $manager = new PersonneManager($db);
+  $personneManager = new PersonneManager($db);
+  $etudiantManager = new EtudiantManager($db);
+  $salarieManager = new SalarieManager($db);
+  $divisionManager = new DivisionManager($db);
+
+  $tabDivision = $divisionManager->getAllDivision();
  ?>
 <h1>Ajouter une personne</h1>
 
@@ -45,67 +50,70 @@
   </form>
   ';
   }
-  elseif(!empty($_POST["per_nom"]) && !empty($_POST["per_prenom"]) && !empty($_POST["per_tel"]) && !empty($_POST["per_mail"])
-        && !empty($_POST["per_login"]) && !empty($_POST["per_pwd"]) && isset($_POST['etu'])){
+  elseif(!empty($_POST["per_nom"]) || !empty($_POST["per_prenom"]) || !empty($_POST["per_tel"]) || !empty($_POST["per_mail"])
+        || !empty($_POST["per_login"]) || !empty($_POST["per_pwd"]) || isset($_POST['etu'])){
     echo'
     <form>
-      <label>Année</label><SELECT name="annee">
-      <?php
-      while($row=mysqli_fetch_array($res,MYSQL_ASSOC)){?>
-        <OPTION value="<?php echo $row['div_nom']; ?>">
-        <?php
-        echo $row['div_nom'];
-        ?>
-        </OPTION>
-      <?php}?>
+      <label>Année</label><SELECT name="annee" size="1" required>
+      <?php foreach ($tabDivision as $division): ?>
+        <option value="<?php echo $division->getDivNum() ?>"><?php echo $division->getDivNom()?></option>
+      <?php endforeach; ?>
       </SELECT>
 
-      <label>Département</label><SELECT name="dep">
+      <label>Département</label><SELECT name="dep" size="1" required>
       <?php
       while($row=mysqli_fetch_array($res,MYSQL_ASSOC)){?>
-        <OPTION value="<?php echo $row['dep_nom']; ?>">
+        <OPTION value="<?php echo $row[\'dep_nom\']; ?>">
         <?php
-        echo $row['dep_nom'];
+        echo $row[\'dep_nom\'];
         ?>
         </OPTION>
       <?php}?>
       </SELECT>
       <input class="subButton" type="submit" value="Valider">
     </form>
-    '
+    ';
   }
-  elseif(!empty($_POST["per_nom"]) && !empty($_POST["per_prenom"]) && !empty($_POST["per_tel"]) && !empty($_POST["per_mail"])
-        && !empty($_POST["per_login"]) && !empty($_POST["per_pwd"]) && isset($_POST['perso'])){
+  elseif(!empty($_POST["per_nom"]) || !empty($_POST["per_prenom"]) || !empty($_POST["per_tel"]) || !empty($_POST["per_mail"])
+        || !empty($_POST["per_login"]) || !empty($_POST["per_pwd"]) || isset($_POST['perso'])){
     echo'
     <form>
-      <label>Téléphone professionel : </label><SELECT name="tel">
+      <label>Téléphone professionel : </label><SELECT name="tel" size="1" required>
       <?php
       while($row=mysqli_fetch_array($res,MYSQL_ASSOC)){?>
-        <OPTION value="<?php echo $row['per_tel']; ?>">
+        <OPTION value="<?php echo $row[\'per_tel\']; ?>">
         <?php
-        echo $row['per_tel'];
+        echo $row[\'per_tel\'];
         ?>
         </OPTION>
       <?php}?>
       </SELECT>
 
-      <label>Fonction : </label><SELECT name="fonction">
+      <label>Fonction : </label><SELECT name="fonction" size="1" required>
       <?php
       while($row=mysqli_fetch_array($res,MYSQL_ASSOC)){?>
-        <OPTION value="<?php echo $row['fon_libelle']; ?>">
+        <OPTION value="<?php echo $row[\'fon_libelle\']; ?>">
         <?php
-        echo $row['fon_libelle'];
+        echo $row[\'fon_libelle\'];
         ?>
         </OPTION>
       <?php}?>
       </SELECT>
       <input class="subButton" type="submit" value="Valider">
     </form>
-    '
+    ';
   }
-  else() {
+  else {
     $personne = new Personne($_POST);
-    $manager->add($personne);
+    $personneManager->add($personne);
+    if(isset($_POST["etu"])){
+        $etudiant = new Etudiant($_POST);
+        $manager->add($etudiant);
+    }
+    elseif(isset($_POST['perso'])){
+      $salarie = new Salarie($_POST);
+      $manager->add($salarie);
+    }
   ?>
   <p>
     <img src="image/valid.png" alt="valide" title="valide">

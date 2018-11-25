@@ -31,6 +31,20 @@ $tabVille = $villeManager->getAllVilles();
     <input  class="" type="submit" value="Valider">
    </form>
 
-   
+<?php  } else {
+  if ($_POST["parc_vil1"] != $_POST["parc_vil2"]) {
+    $parcours = new Parcours($_POST);
+    $manager->add($parcours);
+    ?>
+    <p><img src="image/valid.png" alt="valide" title="valide"> Le parcours a été ajoutée !</p.
+<?php }
+else {
+  ?>
+  <p>
+    <img src="image/erreur.png" alt="erreur" title="erreur">
+    Erreur dans l'ajout du parcours !
+  </p>
+    <?php
 
-<?php  } ?>
+  }
+} ?>

@@ -26,13 +26,15 @@ class ParcoursManager{
 		$listeParcours = array();
 
 		$sql = 'SELECT par_num, par_km, vil_num1, vil_num2 FROM parcours';
-		$req = $this->db->query($sql);
+		$req = $this->db->prepare($sql);
+		$req->execute();
 
 		while($parcours = $req->fetch(PDO::FETCH_OBJ)){
 			$listeParcours[] = new Parcours($parcours);
 		}
-		return $listeParcours;
 		$req-> closeCursor();
+		return $listeParcours;
+
 	}
 
 
@@ -52,10 +54,10 @@ class ParcoursManager{
 		$listeVilleDispo = array();
 
 		$requete = $this->db->prepare(
-			'SELECT vil_num1 as parc_vil FROM parcours where vil_num2 = idVilleDepart UNION SELECT
+			'SELECT vil_num1 as parc_vil FROM parcours where vil_num2 = :idVilleDepart UNION SELECT
 			vil_num2 as vil_num where vil_num1=:idVilleDepart '
 		);
-		$requete->bindValue('idVilleDepart', $idVilleDepart, PDO::PARAM_STR);
+		$requete->bindValue(':idVilleDepart', $idVilleDepart, PDO::PARAM_STR);
 		$requete->execute();
 		while ($ville = $requete->fetch(PDO::FETCH_OBJ)){
 			$listeVilleDispo[] = new Ville($ville);

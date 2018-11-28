@@ -31,7 +31,7 @@ class VilleManager{
 				$req->closeCursor();
 			}
 
-			
+
 
 			public function getNbVille(){
 				$sql='SELECT count(*) as TOTAL FROM ville';
@@ -43,9 +43,9 @@ class VilleManager{
 			}
 
 			public function getVilNomId($id){
-				$sql = $this->db->prepare('SELECT * FROM ville WHERE vil_num='.$id);
+				$sql = $this->db->prepare("SELECT * FROM ville WHERE vil_num='.$id'");
 
-				$sql->bindValue(' :num, $id,PDO::PARAM_STR');
+				$sql->bindValue(':num', $id,PDO::PARAM_INT);
 				$sql->execute();
 				$retour=$sql->fetch(PDO::FETCH_ASSOC);
 

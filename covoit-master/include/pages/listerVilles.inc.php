@@ -5,6 +5,7 @@ $villeManager = new VilleManager($db);
 
 $tableauVille = $villeManager->getAllVilles();
 $nbVille = $villeManager->getNbVille();
+var_dump($tableauVille);
 ?>
   <h1> Liste des villes </h1>
   <p> Actuellement <?php echo $nbVille; ?> villes sont enregistréels </p>

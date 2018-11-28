@@ -8,8 +8,8 @@ $nbParcours = $parcourManager->getNbParcours();
  ?>
 
  <h1> Liste des parcours </h1>
- <p> Actuellement <?php echo $nbparcours; ?> parcours sont enregistrées </p>
-
+ <p> Actuellement <?php echo $nbParcours; ?> parcours sont enregistrées </p>
+<?php var_dump($listeParcours); ?>
  <table>
    <tr>
       <th><b> Numéro </b> </th>

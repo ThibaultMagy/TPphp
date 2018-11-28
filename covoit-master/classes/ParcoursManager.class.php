@@ -32,7 +32,7 @@ class ParcoursManager{
 			$listeParcours[] = new Parcours($parcours);
 		}
 		return $listeParcours;
-		$req-> closeCursor;
+		$req-> closeCursor();
 	}
 
 

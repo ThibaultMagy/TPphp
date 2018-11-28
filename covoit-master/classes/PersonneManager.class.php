@@ -42,16 +42,16 @@ class PersonneManager{
 			}
 
 			public function getPerNomId($id){
-				$sql = $this->db->prepare('SELECT * FROM personne WHERE per_num='.$id);
-				$sql->bindValue(' :num, $id,PDO::PARAM_STR');
+				$sql = $this->db->prepare("SELECT * FROM personne WHERE per_num=:id");
+				$sql->bindValue(' :id', $id,PDO::PARAM_STR);
 				$sql->execute();
 				$retour=$sql->fetch(PDO::FETCH_ASSOC);
 				return $retour['pern_nom'];
 			}
 
 			public function getPerPrenomId($id){
-				$sql = $this->db->prepare('SELECT * FROM personne WHERE per_num='.$id);
-				$sql->bindValue(' :num, $id,PDO::PARAM_STR');
+				$sql = $this->db->prepare("SELECT * FROM personne WHERE per_num=:id");
+				$sql->bindValue(' :id', $id,PDO::PARAM_STR);
 				$sql->execute();
 				$retour=$sql->fetch(PDO::FETCH_ASSOC);
 				return $retour['per_prenom'];

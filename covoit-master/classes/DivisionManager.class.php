@@ -28,17 +28,17 @@ class DivisionManager{
 			$req->closeCursor();
 		}
 
-		public function getDivNom($id){
-			$sql = $this->db->prepare('SELECT * FROM division WHERE per_num='.$id);
-			$sql->bindValue(' :num, $id,PDO::PARAM_STR');
+		public function getDivNomId($id){
+			$sql = $this->db->prepare("SELECT * FROM division WHERE per_num=:id");
+			$sql->bindValue(':id', $id,PDO::PARAM_STR);
 			$sql->execute();
 			$retour=$sql->fetch(PDO::FETCH_ASSOC);
 			return $retour['div_nom'];
 		}
 
 		public function getDepNom($id){
-			$sql = $this->db->prepare('SELECT * FROM departement WHERE per_num='.$id);
-			$sql->bindValue(' :num, $id,PDO::PARAM_STR');
+			$sql = $this->db->prepare("SELECT * FROM departement WHERE per_num=:id");
+			$sql->bindValue(' :id', $id,PDO::PARAM_STR);
 			$sql->execute();
 			$retour=$sql->fetch(PDO::FETCH_ASSOC);
 			return $retour['dep_nom'];

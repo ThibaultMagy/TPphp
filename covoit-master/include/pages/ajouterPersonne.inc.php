@@ -7,75 +7,71 @@
 
   $tabDivision = $divisionManager->getAllDivision();
  ?>
-<h1>Ajouter une personne</h1>
 
 <?php if (empty($_POST["per_nom"]) || empty($_POST["per_prenom"]) || empty($_POST["per_tel"]) || empty($_POST["per_mail"])
-      || empty($_POST["per_login"]) || empty($_POST["per_pwd"])) {
-        echo '<form class="" action="" method="post">
-    <table>
-      <tr>
-        <td>
-          <label> Nom : </label>
-          <input type="text" name="per_nom" value="" required>
-        </td>
-        <td>
-          <label> Prénom : </label>
-          <input type="text" name="per_prenom" value="" required>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label> Téléphone : </label>
-          <input type="text" name="per_tel" value="" required>
-        </td>
-        <td>
-          <label> Mail : </label>
-          <input type="text" name="per_mail" value="" required>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label> Login : </label>
-          <input type="text" name="per_login" value="" required>
-        </td>
-        <td>
-          <label> Mot de passe : </label>
-          <input type="password" name="per_pwd" value="" required>
-        </td>
-      </tr>
-    </table>
+      || empty($_POST["per_login"]) || empty($_POST["per_pwd"])) { ?>
+        <h1>Ajouter une personne</h1>
+        <form class="" action="" method="post">
+        <table>
+          <tr>
+            <td>
+              <label> Nom : </label>
+              <input type="text" name="per_nom" value="" required>
+            </td>
+            <td>
+              <label> Prénom : </label>
+              <input type="text" name="per_prenom" value="" required>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label> Téléphone : </label>
+              <input type="text" name="per_tel" value="" required>
+            </td>
+            <td>
+              <label> Mail : </label>
+              <input type="text" name="per_mail" value="" required>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label> Login : </label>
+              <input type="text" name="per_login" value="" required>
+            </td>
+            <td>
+              <label> Mot de passe : </label>
+              <input type="password" name="per_pwd" value="" required>
+            </td>
+          </tr>
+        </table>
     <input type="radio" name="categorie" value="etu" id="etu" required><label for="etu">Étudiant</label>
     <input type="radio" name="categorie" value="perso" id="perso" required><label for="perso">Personnel</label>
     <input class="subButton" type="submit" value="Valider">
   </form>
-  ';
-  }
+  <?php }
   elseif(!empty($_POST["per_nom"]) || !empty($_POST["per_prenom"]) || !empty($_POST["per_tel"]) || !empty($_POST["per_mail"])
-        || !empty($_POST["per_login"]) || !empty($_POST["per_pwd"]) || isset($_POST['etu'])){
-    echo'
+        || !empty($_POST["per_login"]) || !empty($_POST["per_pwd"]) || isset($_POST['etu'])){ ?>
+    <h1>Ajouter un étudiant</h1>
     <form>
-      <label>Année</label><SELECT name="annee" size="1" required>
-      <?php foreach ($tabDivision as $division): ?>
-        <option value="<?php echo $division->getDivNum() ?>"><?php echo $division->getDivNom()?></option>
-      <?php endforeach; ?>
+      <label>Année</label>
+      <SELECT name="annee" size="1" required>
+        <?php foreach ($tabDivision as $division): ?>
+          <option value="<?php echo $division->getDivNum() ?>"><?php echo $division->getDivNomId($division->getDivNum())?></option>
+        <?php endforeach;?>
       </SELECT>
 
-      <label>Département</label><SELECT name="dep" size="1" required>
-      <?php
-      while($row=mysqli_fetch_array($res,MYSQL_ASSOC)){?>
-        <OPTION value="<?php echo $row[\'dep_nom\']; ?>">
-        <?php
-        echo $row[\'dep_nom\'];
-        ?>
-        </OPTION>
-      <?php}?>
+      <label>Département</label>
+      <SELECT name="dep" size="1" required>
+      <?php foreach ($tabDivision as $division){ ?>
+        <option value="<?php $division->getDivNum()?>"><?php $division->getDepNom()?></option>
+      <?php } ?>
       </SELECT>
       <input class="subButton" type="submit" value="Valider">
     </form>
-    ';
-  }
+  <?php }
   elseif(!empty($_POST["per_nom"]) || !empty($_POST["per_prenom"]) || !empty($_POST["per_tel"]) || !empty($_POST["per_mail"])
         || !empty($_POST["per_login"]) || !empty($_POST["per_pwd"]) || isset($_POST['perso'])){
+    echo '<h1>Ajouter un salarié</h1>';
     echo'
     <form>
       <label>Téléphone professionel : </label><SELECT name="tel" size="1" required>

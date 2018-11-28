@@ -4,8 +4,10 @@
   $etudiantManager = new EtudiantManager($db);
   $salarieManager = new SalarieManager($db);
   $divisionManager = new DivisionManager($db);
+  $departementManager = new DepartementManager($db);
 
-  $tabDivision = $divisionManager->getAllDivision();
+  $tabDivision = $divisionManager->getAllDivisions();
+  $tabDepartement = $departementManager->getAllDepartement();
  ?>
 
 <?php if (empty($_POST["per_nom"]) || empty($_POST["per_prenom"]) || empty($_POST["per_tel"]) || empty($_POST["per_mail"])
@@ -54,16 +56,16 @@
     <h1>Ajouter un étudiant</h1>
     <form>
       <label>Année</label>
-      <SELECT name="annee" size="1" required>
+      <SELECT name="annee" required>
         <?php foreach ($tabDivision as $division): ?>
-          <option value="<?php echo $division->getDivNum() ?>"><?php echo $division->getDivNomId($division->getDivNum())?></option>
+          <option value="<?php echo $division->getDivNum() ?>"><?php echo $division->getDivNom()?></option>
         <?php endforeach;?>
       </SELECT>
 
       <label>Département</label>
       <SELECT name="dep" size="1" required>
-      <?php foreach ($tabDivision as $division){ ?>
-        <option value="<?php $division->getDivNum()?>"><?php $division->getDepNom()?></option>
+      <?php foreach ($tabDepartement as $departement){ ?>
+        <option value="<?php echo $departement->getDepNum()?>"><?php echo $departement->getDepNom()?></option>
       <?php } ?>
       </SELECT>
       <input class="subButton" type="submit" value="Valider">

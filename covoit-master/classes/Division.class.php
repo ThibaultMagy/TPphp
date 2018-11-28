@@ -12,8 +12,11 @@ class Division{
 	public function affecte($donnees){
 		foreach ($donnees as $attribut => $valeur) {
 			switch ($attribut) {
-				case 'div_nom':
+				case 'div_num':
 					$this->setDivNum($valeur);
+					break;
+				case 'div_nom':
+					$this->setDivNom($valeur);
 					break;
 			}
 		}
@@ -26,11 +29,12 @@ class Division{
 	public function getDivNom(){
 		return $this->div_nom;
 	}
-	
-	public function SetDivNum($id){
+
+	public function setDivNum($id){
 		$this->div_num = $id;
 	}
-	public function SetDivNom($id){
+	public function setDivNom($id){
 		$this->div_nom = $id;
 	}
 }
+?>

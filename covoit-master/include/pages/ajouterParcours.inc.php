@@ -28,7 +28,7 @@ $tabVille = $villeManager->getAllVilles();
       <input type="number" name="parc_km" value="" required>
 
     </p>
-    <input  class="" type="submit" value="Valider">
+    <input  class="subButton" type="submit" value="Valider">
    </form>
 
 <?php  } else {

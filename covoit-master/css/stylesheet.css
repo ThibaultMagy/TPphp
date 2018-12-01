@@ -188,6 +188,19 @@ input{
 	height: 40px;
 }
 
+.tab table{
+	margin-left: auto;
+	margin-right: auto;
+}
+.tab table, .tab td{
+	border: black 1px solid;
+	border-collapse: collapse	;
+	text-align: center;
+}
+.tab b{
+	padding: 0 100px 0 100px;
+}
+
 table td{
 	/*border: black solid 1px;
 	text-align: right;*/

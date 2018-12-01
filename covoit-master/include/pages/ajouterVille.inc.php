@@ -6,7 +6,7 @@
 <h1>Ajouter une ville</h1>
 
 <?php if (empty($_POST["vil_nom"])) { ?>
-  <form class="" action="#" method="post">
+  <form class="formul" action="#" method="post">
     <label> Nom : </label>
     <input type="text" name="vil_nom" value="" required>
     <input class="subButton" type="submit" value="Valider">

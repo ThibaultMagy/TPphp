@@ -38,13 +38,15 @@ class ProposeManager{
     }
 
     public function getParcoursNum($villeDepart, $villeArrivee) {
-      $sql = "SELECT par_num FROM PARCOURS WHERE vil_num1 = $villeDepart AND vil_num2 = $villeArrivee";
+      $sql = "SELECT par_num FROM PARCOURS WHERE vil_num1 = ".$villeDepart." AND vil_num2 = ".$villeArrivee;
+
+			$sql;
 
       $requete = $this->db->prepare($sql);
       $requete->execute();
 
       if ($requete->rowCount() == 0) {
-        $sql = "SELECT par_num FROM PARCOURS WHERE vil_num1 = $villeArrivee AND vil_num2 = $villeDepart";
+        $sql = "SELECT par_num FROM PARCOURS WHERE vil_num1 = ".$villeArrivee." AND vil_num2 = ".$villeDepart;
 
         $requete = $this->db->prepare($sql);
         $requete->execute();
@@ -56,7 +58,7 @@ class ProposeManager{
     }
 
     public function getProSens($villeDepart, $villeArrivee) {
-      $sql = "SELECT par_num FROM PARCOURS WHERE vil_num1 = $villeDepart AND vil_num2 = $villeArrivee";
+      $sql = "SELECT par_num FROM PARCOURS WHERE vil_num1 =". $villeDepart." AND vil_num2 = ".$villeArrivee;
 
       $requete = $this->db->prepare($sql);
       $requete->execute();

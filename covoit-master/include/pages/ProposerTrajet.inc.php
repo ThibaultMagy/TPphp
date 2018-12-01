@@ -1,50 +1,73 @@
- <h1>Proposer un trajet</h1>
-
 <?php
-$db = new myPdo();
-$manager = new ParcoursManager($db);
-$parcourManager = new ParcoursManager($db);
-$villeManager = new VilleManager($db);
+ $pdo = new Mypdo();
+ $villeManager = new VilleManager($pdo);
+ $parcoursManager = new ParcoursManager($pdo);
+ $ProposeManager = new ProposeManager($pdo);
+ if(empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])){
+?>
+<h1>Proposer un trajet</h1>
+<form action="#" method="POST">
+  <label for="depart">Ville de départ :</label>
+  <select size="1" name="parc_vil1">
+    <option value="0">Choisissez</option>
+    <?php
+      $listeParcours = $parcoursManager->getVilleParcours();
+      foreach($listeParcours as $parcours){ ?>
+    <option value="<?php echo $parcours->getParcVill1();?>"> <?php echo $villeManager->getVilNomId($parcours->getParcVill1());?></option>
+      <?php
+      }
+      ?>
+  </select>
+  <input class="bouton" type="submit" value="Valider" />
+</form>
+<?php }
+if(!empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])){
+  $_SESSION["parc_vil1"] = $_POST["parc_vil2"];
 
-$tabVille = $villeManager->getAllVilles();
-$listeParcours = $parcourManager->getAllParcours();
-$parcour = $parcourManager->getVilleParcours();
+  $num1 = $_POST["parc_vil1"];
+  $_SESSION["parc_vil1"] = $num1;
+?>
+<form action="#" method="POST">
+  <h1>Proposer un trajet</h1>
+  <label for="villeDepart">Ville de départ : <?php echo $parcoursManager->getVilleNom($num1); ?>
+  </label> <label for="villeArrivee">Ville d'arrivée :</label>
+  <select size="1" name="parc_vil2">
+    <option value="0">Choisissez</option>
+    <?php
+      $ville = $parcoursManager->getVilleDispo($num1);
+      foreach($ville as $parcours){ ?>
+    <option value="<?php echo $parcours->getVilNum(); ?>"> <?php echo $villeManager->getVilNomId($parcours->getVilNum());?></option>
+      <?php
+      }
+      ?>
+  </select>
+  <label for="dateDepart">Date de départ :</label> <input type="date" name="pro_date" value="<?php echo date('Y-m-d'); ?>" />
+  <label for="heureDepart">Heure de départ :</label> <input type="time" name="pro_time"/>
+  <label for="nombrePlaces">Nombre de places :</label> <input type="text" name="pro_place" />
+  <input type="submit" value="Valider" />
+<?php
+  }
+  if(empty($_POST["parc_vil1"]) && !empty($_POST["parc_vil2"])){
 
-var_dump($parcour);
- ?>
-     <label> Ville de départ : </label>
+    $par_num = $ProposeManager->getParcoursNum($_SESSION["parc_vil1"], $_POST["parc_vil2"]);
+    $per_num = $_SESSION["numero"];
+    $pro_date = $_POST["pro_date"];
+    $pro_time = $_POST["pro_time"];
+    $pro_place = $_POST["pro_place"];
+    $pro_sens = $ProposeManager->getProSens($_SESSION["parc_vil1"], $_POST["parc_vil2"]);
 
-     <select class="" name="parc_vil1" required>
-       <option value="0"> Choisissez</option>
-       <?php foreach ($parcour as $parc){ ?>
-         <option value="<?php echo $parc->getParcVill1() ?>"><?php echo $villeManager->getVilNomId($parc->getParcVill1());?></option>
-       <?php }
-        ?>
-       </select>
+    $arrayPropose = array('par_num' => $par_num, 'per_num' => $per_num, 'pro_date' => $pro_date, 'pro_time' => $pro_time, 'pro_place' => $pro_place, 'pro_sens' => $pro_sens);
+    $propose = new Propose($arrayPropose);
+    $retour=$ProposeManager->add($propose);
 
-
-       <label> Ville d'arrivée : </label>
-       <select class="" name="parc_vil2" required>
-
-         <option value="0"> Choisissez</option>
-         <?php //$villes2 = getVilleDispo($parcour->getVilleParcours()->getParcVill1()); ?>
-         <?php foreach ($villes2 as $parc){
-            ?>
-
-           <option value="<?php echo $parc->getParcVill2() ?>"><?php echo $parc->$villeManager->getVilNomId($parc->getParcVill2());?></option>
-         <?php } ?>
-         </select>
-
-
-
-         <?php
-             echo 'Date de départ : <input type="date" name="pro_date" size="10" value="'.date('Y-m-d').'">';
-         ?>
-             <br /><br />
-         <?php
-             echo 'Heure de départ : <input type="time" name="pro_time" size="10" value="'.date("H:i:s").'">';
-         ?>
-             <br /><br />
-             Nombre de places : <input type="text" name="pro_place" size="10">
-             <br /><br />
-             <input type="submit" name="bouton" value="Valider">
+    if ($retour != 0) {
+      echo "	<img src=\"image/valid.png\" alt=\"valid\" title=\"insertionValide\">";
+      echo "    La trajet a été proposé." ;
+    }
+    else
+    {
+      echo "	<img src=\"image/erreur.png\" alt=\"erreur\" title=\"insertionInvalide\">";
+      echo "    Erreur, le trajet n'a pas été proposé." ;
+    }
+  }
+   ?>

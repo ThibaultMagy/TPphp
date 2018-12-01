@@ -60,18 +60,31 @@ public function getVilleParcours(){
 	return $listeParc;
 }
 
+public function getVilleNom($num) {
 
-	public function getVilleDispo($idVilleDepart){
-		$listeVilleDispo = array();
-		$requete = $this->db->prepare(
-			'SELECT vil_num2 FROM parcours where vil_num1 = :idVilleDepart'
-		);
-		$requete->bindValue(':idVilleDepart', $idVilleDepart, PDO::PARAM_STR);
-		$requete->execute();
-		while ($ville = $requete->fetch(PDO::FETCH_OBJ)){
-			$listeVilleDispo[] = new Ville($ville);
-		}
-		return $listeVilleDispo;
-		$requete->closeCursor();
+	$sql = "SELECT vil_nom FROM VILLE WHERE vil_num = ".$num;
+	$req = $this->db->query($sql);
+	$nomVille = $req->fetch(PDO::FETCH_OBJ);
+	return $nomVille->vil_nom;
+	$req->closeCursor();
+
+}
+
+
+	public function getVilleDispo($num){
+			$listeVilles = array();
+
+			$sql = "SELECT DISTINCT * FROM (SELECT v2.vil_num, v2.vil_nom FROM VILLE v1, PARCOURS p, VILLE v2
+				WHERE v1.vil_num = p.vil_num1 AND v2.vil_num = p.vil_num2 AND v1.vil_num = $num)T1
+				ORDER BY vil_nom";
+
+			$requete = $this->db->prepare($sql);
+			$requete->execute();
+
+			while ($ville = $requete->fetch(PDO::FETCH_OBJ)) {
+					$listeVilles[] = new Ville($ville);
+			}
+			$requete->closeCursor();
+			return $listeVilles;
 	}
 }

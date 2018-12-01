@@ -68,6 +68,18 @@ class PersonneManager{
 				}
 			}
 
+			public function getNumPersonne($per_login) {
+
+            $reqSQL = "SELECT per_num FROM personne WHERE per_login='".$per_login."'";
+            $reqPreparee = $this->db->prepare($reqSQL);
+            $reqPreparee->execute();
+
+            $num = $reqPreparee->fetch(PDO::FETCH_OBJ);
+            $reqPreparee->closeCursor();
+
+            return $num->per_num;
+        }
+
 			public function getPerPrenomId($id){
 				$sql = $this->db->prepare("SELECT * FROM personne WHERE per_num=:id");
 				$sql->bindValue(' :id', $id,PDO::PARAM_STR);

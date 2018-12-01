@@ -25,7 +25,6 @@ if (empty($_POST[username]) && empty($_POST[password])) { ?>
   $password_crypte=sha1($_POST[password]);
   $loger =$personne->getPersonneForPwdId($username,$password_crypte);
   var_dump($loger);
-  echo "ëwijhfeiufhweifhewiuhfewiuh";
   if ($loger) {
     $personneLog = $personne->creationPersonne($username);
     $_SESSION["id"] = $personneLog->getPerLogin();

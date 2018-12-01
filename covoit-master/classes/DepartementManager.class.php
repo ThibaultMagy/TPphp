@@ -20,7 +20,7 @@ class DepartementManager{
 
 		public function getAllDepartement(){
 			$listeDepartement = array();
-			$sql = $this->db->prepare("SELECT dep_num, dep_nom, vil_num FROM departement");
+			$sql = $this->db->prepare("SELECT dep_num, dep_nom, vil_num FROM departement GROUP BY dep_nom");
 			$sql->execute();
 
 			while ($departement = $sql->fetch(PDO::FETCH_OBJ)){
@@ -29,7 +29,6 @@ class DepartementManager{
 			return $listeDepartement;
 			$req->closeCursor();
 		}
-
 
 		public function getDepNomId($id){
 			$sql = $this->db->prepare("SELECT * FROM departement WHERE dep_num=:id");

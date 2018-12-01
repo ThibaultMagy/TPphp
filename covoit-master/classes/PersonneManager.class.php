@@ -41,12 +41,31 @@ class PersonneManager{
 				$req->closeCursor();
 			}
 
+			public function getLastId() {
+				$pdo = new Mypdo();
+				return $pdo->lastInsertId();
+			}
+
 			public function getPerNomId($id){
 				$sql = $this->db->prepare("SELECT * FROM personne WHERE per_num=:id");
 				$sql->bindValue(' :id', $id,PDO::PARAM_STR);
 				$sql->execute();
 				$retour=$sql->fetch(PDO::FETCH_ASSOC);
 				return $retour['pern_nom'];
+			}
+
+			public function isEtudiant($id) {
+				$sql = 'SELECT per_num AS numPer FROM ETUDIANT WHERE per_num ='.$id;
+				$req = $this->db->prepare($sql);
+				$req->execute();
+				$numPersonnes = $req->fetch(PDO::FETCH_OBJ);
+				if(!empty($numPersonnes)){
+					return true;
+				}
+				else
+				{
+					return false;
+				}
 			}
 
 			public function getPerPrenomId($id){

@@ -8,11 +8,22 @@
 
   $tabDivision = $divisionManager->getAllDivisions();
   $tabDepartement = $departementManager->getAllDepartement();
-  $form1 = array();
-  $form2 = array();
 
+  $nom;
+  $prenom;
+  $pertel;
+  $mail;
+  $login;
+  $pwd;
+  $categorie;
+
+  $annee;
+  $dep;
+  $tel;
+  $fonction;
  ?>
-<?php if (!isset($form1["per_nom"])) { ?>
+<?php
+  if (!isset($nom)) { ?>
         <h1>Ajouter une personne</h1>
         <form class="" action="" method="post">
         <table>
@@ -53,15 +64,16 @@
     <input class="subButton" type="submit" value="Valider" name="Per">
   </form>
   <?php
-    if(!empty($_POST["per_nom"])){$form1["per_nom"]=$_POST["per_nom"];}
-    if(!empty($_POST["per_prenom"])){$form1["per_prenom"]=$_POST["per_prenom"];}
-    if(!empty($_POST["per_tel"])){$form1["per_tel"]=$_POST["per_tel"];}
-    if(!empty($_POST["per_mail"])){$form1["per_mail"]=$_POST["per_mail"];}
-    if(!empty($_POST["per_login"])){$form1["per_login"]=$_POST["per_login"];}
-    if(!empty($_POST["per_pwd"])){$form1["per_pwd"]=$_POST["per_pwd"];}
-
+  if(isset($_POST["per_nom"])){$nom=$_POST["per_nom"];};
+  if(isset($_POST["per_prenom"])){$prenom=$_POST["per_prenom"];};
+  if(isset($_POST["per_tel"])){$tel=$_POST["per_tel"];};
+  if(isset($_POST["per_mail"])){$mail=$_POST["per_mail"];};
+  if(isset($_POST["per_login"])){$login=$_POST["per_login"];};
+  if(isset($_POST["per_pwd"])){$pwd=$_POST["per_pwd"];};
+  if(isset($_POST["categorie"])){$categorie=$_POST["categorie"];};
   }
-  elseif(!empty($form1["per_nom"]) || $form1["categorie"]='etu' || !isset($form2["Etu"])){
+  elseif(!isset($annee) || $categorie=="etu"){
+    $_POST = array();
     ?>
     <h1>Ajouter un étudiant</h1>
     <form method="post">
@@ -81,11 +93,12 @@
       <input class="subButton" type="submit" value="Valider" name="Etu">
     </form>
     <?php
-    if(!empty($_POST["annee"])){$form2["annee"]=$_POST["annee"];}
-    if(!empty($_POST["dep"])){$form2["dep"]=$_POST["dep"];}
-    if(!empty($_POST["Etu"])){$_form2["Etu"]=$_POST["Etu"];}
+    if(isset($_POST["annee"])){$annee=$_POST["annee"];};
+    if(isset($_POST["dep"])){$dep=$_POST["dep"];};
   }
-  elseif(!empty($_SESSION["per_nom"]) || $_SESSION["categorie"]='perso' || !isset($_SESSION["Sal"])){ ?>
+  elseif(!isset($tel) || $categorie=="perso"){
+    $_POST = array();
+    ?>
     <h1>Ajouter un salarié</h1>
     <form method="post">
       <label>Téléphone professionel : </label><SELECT name="tel" size="1" required>
@@ -98,21 +111,18 @@
       <input class="subButton" type="submit" value="Valider" name="Sal">
     </form>
     <?php
-    $_SESSION["tel"]=$_POST["tel"];
-    $_SESSION["fonction"]=$_POST["fonction"];
+    if(isset($_POST["tel"])){$tel=$_POST["tel"];};
+    if(isset($_POST["fonction"])){$fonction=$_POST["fonction"];};
   }
-  elseif(isset($_SESSION["per_nom"]) || isset($_SESSION["categorie"]) || (isset($_SESSION["Etu"]) && isset($_SESSION["Sal"])))
+  else
   {
-    if(isset($_SESSION["Etu"])){
-    /*Premier if mettre les $_POST differents     if pour categorie etudiant ou slarie + nouveau if si on a cree un etudiant dans un autre if verifier si salarie est crée*/
-    $personne = new Personne($_POST);
-    $personneManager->add($personne);
-    $etudiant = new Etudiant($_POST);
-    $etudiantManager->add($etudiant);
+    if($categorie=="etu"){
+    $personneManager->add($nom, $prenom, $pertel, $mail, $login, $pwd);
+    $etudiantManager->add($annee, $dep);
   }
-  elseif(isset($_SESSION["Sal"])){
-    $salarie = new Salarie($_SESSION);
-    $manager->add($salarie);
+  elseif($categorie=="perso"){
+    $personneManager->add($nom, $prenom, $pertel, $mail, $login, $pwd);
+    $salarieManager->add($tel, $fonction);
   }
   ?>
   <p>

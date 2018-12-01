@@ -42,6 +42,10 @@ class Personne{
 	public function getPerNom(){
 		return $this->per_nom;
 	}
+
+	public function getPerNum(){
+		return $this->per_num;
+	}
 	public function getPerPrenom(){
 		return $this->per_prenom;
 	}
@@ -61,6 +65,11 @@ class Personne{
 	public function SetPerNom($id){
 		$this->per_nom = $id;
 	}
+
+	public function SetPerNum($id){
+		$this->per_num = $id;
+	}
+
 	public function SetPerPrenom($id){
 		$this->per_prenom = $id;
 	}

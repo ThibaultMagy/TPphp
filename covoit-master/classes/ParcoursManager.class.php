@@ -64,8 +64,7 @@ public function getVilleParcours(){
 	public function getVilleDispo($idVilleDepart){
 		$listeVilleDispo = array();
 		$requete = $this->db->prepare(
-			'SELECT vil_num1 as parc_vil FROM parcours where vil_num2 = :idVilleDepart UNION SELECT
-			vil_num2 as vil_num where vil_num1=:idVilleDepart '
+			'SELECT vil_num2 FROM parcours where vil_num1 = :idVilleDepart'
 		);
 		$requete->bindValue(':idVilleDepart', $idVilleDepart, PDO::PARAM_STR);
 		$requete->execute();

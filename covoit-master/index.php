@@ -1,4 +1,7 @@
+<?php session_start(); ?>
+
 <?php
+
 
 require_once("include/header.inc.php");
 require_once("include/config.inc.php");

@@ -46,14 +46,37 @@ class PersonneManager{
 				$sql->bindValue(' :id', $id,PDO::PARAM_STR);
 				$sql->execute();
 				$retour=$sql->fetch(PDO::FETCH_ASSOC);
-				return $retour['pern_nom'];
+				return $retour['per_nom'];
 			}
 
 			public function getPerPrenomId($id){
 				$sql = $this->db->prepare("SELECT * FROM personne WHERE per_num=:id");
 				$sql->bindValue(' :id', $id,PDO::PARAM_STR);
 				$sql->execute();
-				$retour=$sql->fetch(PDO::FETCH_ASSOC);
+				$retour=$sql->fetch(PDO::FETCH_OBJ);
 				return $retour['per_prenom'];
+			}
+
+			public function getPersonneForPwdId($id, $pswd){
+				$sql = $this->db->prepare("SELECT per_login, per_pwd FROM personne WHERE per_login=':id' and per_pwd=':pswd'");
+				$sql->bindValue(':id', $id);
+				$sql->bindValue(':pswd', $pswd);
+				$sql->execute();
+				$retour=$sql->fetch(PDO::FETCH_OBJ);
+				if($retour){
+					return true;
+				}else {
+					return false;
+				}
+			}
+
+			public function creationPersonne($id){
+				$sql = $this->db->prepare("SELECT * from personne where per_login=:id");
+				$sql->bindValue(' :id', $id);
+				$sql->execute();
+				$retour=$sql->fetch(PDO::FETCH_OBJ);
+
+				$personne = new Personne($retour);
+				return $personne;
 			}
 }

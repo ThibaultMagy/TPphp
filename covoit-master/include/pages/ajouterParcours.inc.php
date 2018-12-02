@@ -1,9 +1,10 @@
 <?php
 $db = new myPdo();
-$manager = new ParcoursManager($db);
+$parcoursManager = new ParcoursManager($db);
 $villeManager = new VilleManager($db);
 
 $tabVille = $villeManager->getAllVilles();
+
  ?>
  <h1>Ajouter un parcours</h1>
 
@@ -20,36 +21,36 @@ $tabVille = $villeManager->getAllVilles();
          </div>
 
          <div class="labelinputinline">
-         <label> Ville 2 : </label>
+           <label> Ville 2 : </label>
            <select class="" name="vil_num2" required>
              <?php foreach ($tabVille as $ville): ?>
                <option value="<?php echo $ville->getVilNum() ?>"><?php echo $ville->getVilNom()?></option>
              <?php endforeach;?>
            </select>
-        </div>
+         </div>
         <div class="labelinputinline">
-          <label> Nb de km : </label>
+          <label> Nombre de km : </label>
           <input type="number" name="par_km" value="" required>
         </div>
       </div>
 
     <input  class="subButton2" type="submit" value="Valider" />
    </form>
-
-<?php  } else {
-  if ($_POST["vil_num1"] != $_POST["vil_num2"]) {
-    $parcours = new Parcours($_POST["par_km"], $_POST["vil_num1"], $_POST["vil_num2"]);
-    $manager->add($parcours);
+  <?php }
+  else {
+    if ($_POST["vil_num1"] != $_POST["vil_num2"]) {
+      $parcours = new Parcours($_POST);
+      $retour = $parcoursManager->add($parcours);
+      ?>
+      <p><img src="image/valid.png" alt="valide" title="valide"> Le parcours a été ajoutée !</p.
+  <?php }
+  else {
     ?>
-    <p><img src="image/valid.png" alt="valide" title="valide"> Le parcours a été ajoutée !</p.
-<?php }
-else {
-  ?>
-  <p>
-    <img src="image/erreur.png" alt="erreur" title="erreur">
-    Erreur dans l'ajout du parcours !
-  </p>
-    <?php
+    <p>
+      <img src="image/erreur.png" alt="erreur" title="erreur">
+      Erreur dans l'ajout du parcours !
+    </p>
+      <?php
 
-  }
-} ?>
+    }
+  } ?>

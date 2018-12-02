@@ -7,16 +7,13 @@ class ParcoursManager{
 	}
 
 
-	public function add($parcours){
-			$req = $this->db->prepare("INSERT INTO parcours(par_km,vil_num1,vil_num2) VALUES(:parc_km, :parc_vil1, :parc_vil2)");
+	public function add($nomParcours){
+		$req = $this->db->prepare("INSERT INTO parcours(par_km,vil_num1,vil_num2) VALUES(:par_km, :vil_num1, :vil_num2)");
+		$req->bindValue(':par_km', $nomParcours->getParcKm());
+		$req->bindValue(':vil_num1', $nomParcours->getParcVill1());
+		$req->bindValue(':vil_num2', $nomParcours->getParcVill2());
 
-
-		$requete->bindValue(':parc_km', $parcours->getParcKm());
-		$requete->bindValue(':parc_vil1', $parcours->getParcVill1());
-		$requete->bindValue(':parc_vil2', $parcours->getParcVill2());
-
-
-		$retour=$requete->execute();
+		$retour=$req->execute();
 		return $retour;
 	}
 

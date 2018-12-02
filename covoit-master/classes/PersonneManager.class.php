@@ -37,7 +37,7 @@ class PersonneManager{
 				$sql='SELECT COUNT(*) as nbPer FROM personne';
 				$req = $this->db->query($sql);
 				$nbPer = $req->fetch(PDO::FETCH_OBJ);
-				return $nbPer->TOTAL;
+				return $nbPer->nbPer;
 				$req->closeCursor();
 			}
 

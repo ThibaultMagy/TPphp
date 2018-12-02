@@ -36,7 +36,7 @@
         }
 
         public function pwdCorrect($per_login, $pwd) {
-            $salt = "48@!alsd";
+            //$salt = "48@!alsd";
             $pwdSale = sha1($pwd.$salt);
 
             $reqSQL = "SELECT per_pwd FROM personne WHERE per_login='".$per_login."'";

@@ -54,7 +54,7 @@
 
                 echo "<img src=\"./image/valid.png\" alt=\"icone valide\">";
                 echo "<p>Vous avez bien été connecté !</p>\n";
-                header("Refresh:2,url=./index.php?page=0"); //redirection sur index
+                //header("Refresh:2,url=./index.php?page=0"); //redirection sur index
 
             } else {
 
@@ -69,6 +69,6 @@
 
         echo "<img src=\"./image/valid.png\" alt=\"icone valide\">";
         echo "<p>Vous avez bien été déconnecté.</p>";
-        header("Refresh:2,url=./index.php?page=0"); //redirection sur index
+        //header("Refresh:2,url=./index.php?page=0"); //redirection sur index
     }
 ?>

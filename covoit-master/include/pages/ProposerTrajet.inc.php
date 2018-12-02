@@ -29,7 +29,7 @@ if(!empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])){
   $_SESSION["parc_vil1"] = $_POST["parc_vil1"];
 
   $num1 = $_POST["parc_vil1"];
-  $_SESSION["parc_vil1"] = $num1;
+$num2 =  $_SESSION["parc_vil1"] ;
 ?>
 <form action="#" method="POST"
   <h1>Proposer un trajet</h1>
@@ -44,7 +44,7 @@ if(!empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])){
       <select size="1" name="parc_vil2" required>
         <option value="0">Choisissez</option>
         <?php
-          $ville = $parcoursManager->getVilleDispo($num1);
+          $ville = $parcoursManager->getVilleDispo($num2);
           foreach($ville as $parcours){ ?>
         <option value="<?php echo $parcours->getVilNum(); ?>"> <?php echo $villeManager->getVilNomId($parcours->getVilNum());?></option>
           <?php

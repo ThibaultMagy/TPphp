@@ -8,32 +8,32 @@ $tabVille = $villeManager->getAllVilles();
 
  <h1>Ajouter un parcours</h1>
 
- <?php if (empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"]) && empty($_POST["parc_km"])){ ?>
+ <?php if (empty($_POST["vil_num1"]) && empty($_POST["vil_num2"]) && empty($_POST["par_km"])){ ?>
    <form class="" action="#" method="post">
      <p>
      <label> Ville 1 : </label>
-     <select class="" name="parc_vil1" required>
+     <select class="" name="vil_num1" required>
        <?php foreach ($tabVille as $ville): ?>
          <option value="<?php echo $ville->getVilNum() ?>"><?php echo $ville->getVilNom()?></option>
        <?php endforeach; ?>
        </select>
 
        <label> Ville 2 : </label>
-       <select class="" name="parc_vil2" required>
+       <select class="" name="vil_num2" required>
          <?php foreach ($tabVille as $ville): ?>
            <option value="<?php echo $ville->getVilNum() ?>"><?php echo $ville->getVilNom()?></option>
          <?php endforeach;?>
        </select>
       <label> Nb de km : </label>
-      <input type="number" name="parc_km" value="" required>
+      <input type="number" name="par_km" value="" required>
 
     </p>
     <input  class="subButton" type="submit" value="Valider">
    </form>
 
 <?php  } else {
-  if ($_POST["parc_vil1"] != $_POST["parc_vil2"]) {
-    $parcours = new Parcours($_POST);
+  if ($_POST["vil_num1"] != $_POST["vil_num2"]) {
+    $parcours = new Parcours($_POST["par_km"], $_POST["vil_num1"], $_POST["vil_num2"]);
     $manager->add($parcours);
     ?>
     <p><img src="image/valid.png" alt="valide" title="valide"> Le parcours a été ajoutée !</p.

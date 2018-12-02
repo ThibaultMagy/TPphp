@@ -127,16 +127,15 @@
       header("Refresh:2, url=./index.php?page=0");
     }
     if(!empty($_POST["fonction"]) && !empty($_POST["tel"])){
-      $add = unserialize($_SESSION["addPers"]);
-      $ajout = $personneManager->add($add);
+      $personne = unserialize($_SESSION["addPers"]);
+      $ajout = $personneManager->add($personne);
       $salarie = new Salarie($_POST);
       $salarie->setSalTelProf($_POST["tel"]);
       $salarie->setSalFonNum($_POST["fonction"]);
       $ajoutSalarie = $salarieManager->add($salarie);
       ?>
       <img src="image/valid.png"> Le salarié a bien été ajouté !
-      </br></br>
       <?php
-      header("Refresh:2, url=./index.php?page=0");
+      //header("Refresh:2, url=./index.php?page=0");
     }
   } ?>

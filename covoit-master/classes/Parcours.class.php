@@ -13,21 +13,18 @@ public function __construct($valeur = array()){
   }
 }
 
+
 public function affecte($donnees){
-  foreach ($donnees as $attribut => $valeur) {
-    switch ($attribut) {
-      case 'par_num':
-        $this->setParcNum($valeur);
-        break;
-      case 'par_km':
-        $this->setParcKm($valeur);
-        break;
-      case 'vil_num1':
-        $this->setParcVill1($valeur);
-        break;
-      case 'vil_num2':
-        $this->setParcVill2($valeur);
-        break;
+  foreach($donnees as $attribut => $valeur){
+    switch($attribut){
+      case 'par_num': $this->setParcNum($valeur);
+      break;
+      case 'vil_num1': $this->setParcVill1($valeur);
+      break;
+      case 'vil_num2': $this->setParcVill2($valeur);
+      break;
+      case 'par_km': $this->setParcKm($valeur);
+      break;
     }
   }
 }

@@ -8,12 +8,12 @@ class ParcoursManager{
 
 
 	public function add($parcours){
-		$requete = $this->db->prepare(
-				'INSERT INTO parcours (par_km,vil_num1,vil_num2) VALUES (:parc_km, :parc_vil1, :parc_vil2);');
+			$req = $this->db->prepare("INSERT INTO parcours(par_km,vil_num1,vil_num2) VALUES(:parc_km, :parc_vil1, :parc_vil2)");
 
-		$requete->bindValue(':parc_km', $parcours->getParcKm(), PDO::PARAM_STR);
-		$requete->bindValue('parc_vil1', $parcours->getParcVill1(), PDO::PARAM_STR);
-		$requete->bindValue('parc_vil2', $parcours->getParcVill2(), PDO::PARAM_STR);
+
+		$requete->bindValue(':parc_km', $parcours->getParcKm());
+		$requete->bindValue(':parc_vil1', $parcours->getParcVill1());
+		$requete->bindValue(':parc_vil2', $parcours->getParcVill2());
 
 
 		$retour=$requete->execute();
@@ -35,6 +35,16 @@ class ParcoursManager{
 		$req-> closeCursor();
 		return $listeParcours;
 
+	}
+
+	public function parcoursExistant($villenum1, $villenum2){
+		$listeParcours = array();
+		$req = $this->db->prepare("SELECT COUNT(par_num) FROM parcours WHERE vil_num1 = :villenum1 AND vil_num2 = :villenum2");
+		$req->bindValue(':villenum1', $villenum1);
+		$req->bindValue(':villenum2', $villenum2);
+		$req->execute();
+		$parcours = $req->fetchColumn();
+		return $parcours;
 	}
 
 

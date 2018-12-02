@@ -5,7 +5,6 @@ $villeManager = new VilleManager($db);
 
 $tabVille = $villeManager->getAllVilles();
  ?>
-
  <h1>Ajouter un parcours</h1>
 
  <?php if (empty($_POST["vil_num1"]) && empty($_POST["vil_num2"]) && empty($_POST["par_km"])){ ?>

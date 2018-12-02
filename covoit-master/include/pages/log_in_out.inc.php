@@ -60,7 +60,6 @@
 
                 echo "<img src=\"./image/erreur.png\" alt=\"icone erreur\">";
                 echo "<p class=\"important\">Les informations saisies sont incorrectes</p>";
-                header("Refresh:2,url=./index.php?page=0");//redirection sur page de connexion
             }
         }
 

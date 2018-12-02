@@ -65,27 +65,27 @@ class Personne{
 		return $this->per_pwd;
 	}
 
-	public function SetPerNom($id){
+	public function setPerNom($id){
 		$this->per_nom = $id;
 	}
 
-	public function SetPerNum($id){
+	public function setPerNum($id){
 		$this->per_num = $id;
 	}
 
-	public function SetPerPrenom($id){
+	public function setPerPrenom($id){
 		$this->per_prenom = $id;
 	}
-	public function SetPerTel($id){
+	public function setPerTel($id){
 		$this->per_tel = $id;
 	}
-	public function SetPerMail($id){
+	public function setPerMail($id){
 		$this->per_mail = $id;
 	}
-	public function SetPerLogin($id){
+	public function setPerLogin($id){
 		$this->per_login = $id;
 	}
-	public function SetPerPwd($id){
+	public function setPerPwd($id){
 		$this->per_pwd = $id;
 	}
 

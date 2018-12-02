@@ -28,7 +28,7 @@ class DivisionManager{
 			return $listeDivisions;
 			$req->closeCursor();
 		}
-		
+
 
 		public function getDivNomId($id){
 			$sql = $this->db->prepare("SELECT * FROM division WHERE div_num=:id");

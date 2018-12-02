@@ -17,6 +17,9 @@ class Personne{
 	public function affecte($donnees){
 		foreach ($donnees as $attribut => $valeur) {
 			switch ($attribut) {
+				case 'per_num':
+					$this->setPerNum($valeur);
+					break;
 				case 'per_nom':
 					$this->setPerNom($valeur);
 					break;

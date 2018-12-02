@@ -20,7 +20,7 @@ class EtudiantManager{
 		//On veut le nom du département
 		public function getDepNom($id){
 			$sql = $this->db->prepare('SELECT * FROM departement d JOIN etudiant e ON d.dep_num=e.dep_num WHERE per_num='.$id);
-			$sql->bindValue(' :num, $id,PDO::PARAM_STR');
+			$sql->bindValue(':num',$id,PDO::PARAM_STR);
 			$sql->execute();
 			$retour=$sql->fetch(PDO::FETCH_ASSOC);
 			return $retour['dep_nom'];
@@ -29,7 +29,7 @@ class EtudiantManager{
 		//On veut le nom de la ville
 		public function getVilleNom($id){
 			$sql = $this->db->prepare('SELECT * FROM ville v JOIN departement d ON v.vil_num=d.vil_num JOIN etudiant e ON d.dep_num=e.dep_num WHERE per_num='.$id);
-			$sql->bindValue(' :num, $id,PDO::PARAM_STR');
+			$sql->bindValue(':num', $id,PDO::PARAM_STR);
 			$sql->execute();
 			$retour=$sql->fetch(PDO::FETCH_ASSOC);
 			return $retour['vil_nom'];

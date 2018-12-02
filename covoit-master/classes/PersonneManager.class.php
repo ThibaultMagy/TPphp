@@ -32,6 +32,23 @@ class PersonneManager{
 				$req->closeCursor();
 			}
 
+			public function getPers($id){
+				$sql = $this->db->prepare("SELECT * FROM personne WHERE per_num=:id");
+				$sql->bindValue(':id',$id,PDO::PARAM_STR);
+				$sql->execute();
+				$retour=$sql->fetch(PDO::FETCH_ASSOC);
+				return $retour;
+			}
+			public function getPersonne($num) {
+				$sql = 'SELECT * FROM PERSONNE WHERE per_num = '.$num;
+				$requete = $this->db->prepare($sql);
+				$requete->execute();
+				$personne = new Personne($requete->fetch(PDO::FETCH_OBJ));
+				return $personne;
+			}
+
+
+
 
 			public function getNbPer(){
 				$sql='SELECT COUNT(*) as nbPer FROM personne';

@@ -225,6 +225,10 @@ input{
 	display: block;
 	margin: 15px 10px 15px 10px;
 }
+.labelinputinline{
+	display: inline-block;
+	margin: 15px 10px 15px 10px;
+}
 
 table td{
 	/*border: black solid 1px;

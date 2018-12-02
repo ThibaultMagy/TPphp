@@ -7,18 +7,22 @@
 ?>
 <h1>Proposer un trajet</h1>
 <form action="#" method="POST">
-  <label for="depart">Ville de départ :</label>
-  <select size="1" name="parc_vil1">
-    <option value="0">Choisissez</option>
-    <?php
-      $listeParcours = $parcoursManager->getVilleParcours();
-      foreach($listeParcours as $parcours){ ?>
-    <option value="<?php echo $parcours->getParcVill1();?>"> <?php echo $villeManager->getVilNomId($parcours->getParcVill1());?></option>
+<div class="formBloc">
+  <div class="labelinputinline">
+    <label for="depart">Ville de départ :</label>
+    <select size="1" name="parc_vil1">
+      <option value="0">Choisissez</option>
       <?php
-      }
-      ?>
-  </select>
-  <input class="bouton" type="submit" value="Valider" />
+        $listeParcours = $parcoursManager->getVilleParcours();
+        foreach($listeParcours as $parcours){ ?>
+      <option value="<?php echo $parcours->getParcVill1();?>"> <?php echo $villeManager->getVilNomId($parcours->getParcVill1());?></option>
+        <?php
+        }
+        ?>
+    </select>
+  </div>
+  <input class="subButton" type="submit" value="Valider" />
+</div>
 </form>
 <?php }
 if(!empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])){

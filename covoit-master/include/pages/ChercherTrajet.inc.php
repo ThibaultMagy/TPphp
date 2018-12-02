@@ -11,7 +11,7 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])) {
 <form action="" method="POST">
   <div class="formBloc">
     <label for="villeDepart">Ville de départ :</label>
-    <select size="1" name="parc_vil1" id="parc_vil1">
+    <select size="1" name="parc_vil1" id="parc_vil1" required>
       <option value="0">Choisissez</option>
       <?php
       $listeDepart = $proposeManager->getAllVilleDepart();
@@ -20,7 +20,7 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])) {
       <?php } ?>
     </select>
   </div>
-  <input class="subButton2" type="submit" value="Valider" />
+  <input class="subButton2" type="submit" value="Valider" required/>
   </form>
   <?php }
   if(!empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])) {
@@ -33,7 +33,7 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])) {
     <div class="labelinput"><label for="DateDepart"> Date de départ : </label><input name"pro_date" id="pro_date" type="date"></input></div>
     <div class="labelinput">
       <label for="depart">A partir de : </label>
-      <select size="1" name="temps" id="temps">
+      <select size="1" name="temps" id="temps" required>
       <option value="0"  selected="selected">0h</option>
       <?php
       for($i = 1; $i < 24; $i++){
@@ -51,7 +51,7 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])) {
   <div class="formBloc">
     <div class="labelinput">
       <label for="VilleArrivee"> Ville d'arrivée : </label>
-      <select size="1" name="parc_vil2" id="parc_vil2">
+      <select size="1" name="parc_vil2" id="parc_vil2" required>
         <option value="0"> Choisissez</option>
         <?php
         $listeArrivee = $proposeManager->recupVilleArrivee($_POST["parc_vil1"]);
@@ -62,7 +62,7 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])) {
     </div>
     <div class="labelinput">
         <label for="Precision">Précision : </label>
-        <select size="1" name="precision" id="precision">
+        <select size="1" name="precision" id="precision" required>
           <option value="0" selected="selected">Ce jour</option>
           <option value="1">+/- 1 jour</option>
           <option value="2">+/- 2 jours</option>

@@ -84,6 +84,17 @@ class PersonneManager{
 					return false;
 				}
 			}
+			public function getAllInfoPersonne($num){
+				$sql="SELECT per_nom, per_prenom FROM personne WHERE per_num = :num";
+				$req = $this->db->prepare($sql);
+				$req->bindValue(':num', $num);
+				$req->execute();
+
+				$personne = $req->fetch(PDO::FETCH_OBJ);
+				$PersRecup = new Personne($personne);
+				return $PersRecup;
+
+			}
 
 			public function getNumPersonne($per_login) {
 

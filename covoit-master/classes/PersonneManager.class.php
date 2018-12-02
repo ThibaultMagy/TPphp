@@ -40,7 +40,7 @@ class PersonneManager{
 				return $retour;
 			}
 			public function getPersonne($num) {
-				$sql = 'SELECT * FROM PERSONNE WHERE per_num = '.$num;
+				$sql = 'SELECT * FROM personne WHERE per_num = '.$num;
 				$requete = $this->db->prepare($sql);
 				$requete->execute();
 				$personne = new Personne($requete->fetch(PDO::FETCH_OBJ));
@@ -72,7 +72,7 @@ class PersonneManager{
 			}
 
 			public function isEtudiant($id) {
-				$sql = 'SELECT per_num AS numPer FROM ETUDIANT WHERE per_num ='.$id;
+				$sql = 'SELECT per_num AS numPer FROM etudiant WHERE per_num ='.$id;
 				$req = $this->db->prepare($sql);
 				$req->execute();
 				$numPersonnes = $req->fetch(PDO::FETCH_OBJ);

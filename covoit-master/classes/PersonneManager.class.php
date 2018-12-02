@@ -48,6 +48,22 @@ class PersonneManager{
 			}
 
 
+			public function isPersonne($login, $pwd){
+				$sql = "SELECT per_login, per_pwd FROM personne WHERE per_login = :login AND per_pwd = :pwd";
+				$req = $this->db->prepare($sql);
+				$req->bindValue(':login', $login);
+				$req->bindValue(':pwd', $pwd);
+				$req->execute();
+
+				$personne = $req->fetch(PDO::FETCH_OBJ);
+				if($personne){
+					return true;
+				}else{
+					return false;
+				}
+			}
+
+
 
 
 			public function getNbPer(){

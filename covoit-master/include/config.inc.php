@@ -4,8 +4,6 @@
 
 define('DBHOST', "localhost");
 define('DBNAME', "Covoiturage");
-define('DBUSER', "bd");
-define('DBPASSWD', "bede");
 define('DBUSER', "ali");
 define('DBPASSWD', "ali");
 define('ENV','dev');

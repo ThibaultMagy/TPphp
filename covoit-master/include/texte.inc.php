@@ -75,12 +75,12 @@ case 10:
 
 case 11:
 	// inclure ici la page de connexion
-	include_once('pages/log_in_out.inc.php');
+	include_once('pages/Connexion.inc.php');
     break;
 
 case 12:
 	// inclure ici la page de d�connexion
-	include_once('pages/log_in_out.inc.php');
+	include_once('pages/Deconnexion.inc.php');
     break;
 
 default : 	include_once('pages/accueil.inc.php');

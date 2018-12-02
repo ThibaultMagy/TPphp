@@ -1,49 +1,53 @@
 <?php
-$db = new myPdo();
-$personne= new PersonneManager($db);
+  if(empty($_POST["login"]) || empty($_POST["passwd"])){
+    $randA = rand(1,9);
+    $randB = rand(1,9);
+    $reponse = $randA + $randB;
+?>
+<h1>Pour vous connecter</h1>
+<form action="#" id="connexion" method="POST">
+  <label for="Utilisateur">Nom d'utilisateur :</label>
+  <input type="text" name="login" id="login"></input>
+  </br></br>
+  <label for="Passwd">Mot de passe :</label>
+  <input type="password" name="passwd" id="passwd"></input>
+  </br></br>
+  <label for="code">
+    <img src="image/nb/<?php echo $randA ?>.jpg">
+    +
+    <img src="image/nb/<?php echo $randB ?>.jpg">
+    =
+  </label>
+  <input type="text" pattern="<?php echo $reponse ?>" name="code" id="code" required></input>
+  </br></br>
+  <input type="submit" value="Valider"></input>
+</form>
+</br>
+<?php
+}else{
+  $pdo = new Mypdo();
 
+  $login = $_POST["login"];
+  $password = $_POST["passwd"];
+  $password_crypte = sha1(sha1($password).SALT);
 
-if (empty($_POST[username]) && empty($_POST[password])) { ?>
+  $personneManager = new PersonneManager($pdo);
+  $isPersonne = $personneManager->isPersonne($login, $password_crypte);
+  if($isPersonne){
+    $personne = $personneManager->getPersonne($login);
+    $_SESSION["log"] = $personne->getPerLogin();
+    $_SESSION["idPers"] = $personne->getPerNum();
+?>
+<img src="image/valid.png"> Vous vous êtes connecté avec succès !
+</br></br>
+Redirection automatique dans 2 secondes...
 
-  <h1>Pour vous connecter</h1>
-  <form class="" action="#" method="post">
-    <label> Nom d'utilisateur : </label>
-    <input type="text" name="UserName" value="" required>
-  <br>
-  <br>
-  <br>
-    <label> Mot de passe : </label>
-    <input type="password" name="password" value="" required>
-  <br>
-  <br>
-      <input class="subButton" type="submit" value="Valider">
+<?php
+header("Refresh:2, url=./index.php?page=0");
+}else{
+?>
+<img src="image/erreur.png"> Erreur de connexion, veuillez reessayer.
 
-  </form>
-<?php } else {
-  $username = $_POST[username];
-  $pswd = $_POST[password];
-  $password_crypte=sha1($_POST[password]);
-  $loger =$personne->getPersonneForPwdId($username,$password_crypte);
-  var_dump($loger);
-  if ($loger) {
-    $personneLog = $personne->creationPersonne($username);
-    $_SESSION["id"] = $personneLog->getPerLogin();
-    $_SESSION["num"] = $personneLog->getPerNum();
-    ?> <img src="image/valid.png"> Vous êtes connectés !
-    <br> <br>
-    Redirection automatique dans 2 secondes...
-  <?php
-  header("Refresh:2,url=./index.php?page=0");
-}else {
-  print_r($personneLog);
-  print_r($loger);
-    ?>
-    <img src="image/erreur.png"> Erreur de connexion, veuillez réessayer.
-    <?php
-//header("Refresh:2,url=./index.php?page=11");
-
-  }
-
-
+<?php header("Refresh:2, url=./index.php?page=11");
 }
- ?>
+} ?>

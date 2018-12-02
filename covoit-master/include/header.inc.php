@@ -25,19 +25,20 @@
 			<div class="colonne">
 				Covoiturage de l'IUT,<br />Partagez plus que votre véhicule !!!
 			</div>
-				<a href="index.php?page=11">
-        <div id="connect">
+    </div>
+    <div id="connect">
+      <?php
+        if(isset($_SESSION["log"])){
+          $pseudo = $_SESSION["log"];
+      ?>
+      Utilisateur : <?php echo $pseudo ?><a href='index.php?page=12'> Deconnexion</a>
+      <?php
+        }else{
+      ?>
+      <a href="index.php?page=11">Connexion</a>
+      <?php
+        }
+      ?>
 
-               <?php
-                   if (empty($_SESSION['estConnecte']) || $_SESSION['estConnecte'] == false) {
-                       echo "              <p><b>Connexion</b></p>";
-                   } else {
-                       echo "              <p>Utilisateur : ".$_SESSION['nom']." | <b>Déconnexion</b>";
-                   }
-               ?>
-
-       </div>
-     </a>
-			</div>
 		</div>
 	</div>

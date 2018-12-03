@@ -27,7 +27,6 @@
 <?php }
 if(!empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])){
   $_SESSION["parc_vil1"] = $_POST["parc_vil1"];
-
   $num1 = $_POST["parc_vil1"];
 $num2 =  $_SESSION["parc_vil1"] ;
 ?>
@@ -58,18 +57,15 @@ $num2 =  $_SESSION["parc_vil1"] ;
 <?php
   }
   if(empty($_POST["parc_vil1"]) && !empty($_POST["parc_vil2"])){
-
     $par_num = $ProposeManager->getParcoursNum($_SESSION["parc_vil1"], $_POST["parc_vil2"]);
     $per_num = $_SESSION["numero"];
     $pro_date = $_POST["pro_date"];
     $pro_time = $_POST["pro_time"];
     $pro_place = $_POST["pro_place"];
     $pro_sens = $ProposeManager->getProSens($_SESSION["parc_vil1"], $_POST["parc_vil2"]);
-
     $arrayPropose = array('par_num' => $par_num, 'per_num' => $per_num, 'pro_date' => $pro_date, 'pro_time' => $pro_time, 'pro_place' => $pro_place, 'pro_sens' => $pro_sens);
     $propose = new Propose($arrayPropose);
     $retour=$ProposeManager->add($propose);
-
     if ($retour != 0) {
       ?></br><?php
       echo "	<img src=\"image/valid.png\" alt=\"valid\" title=\"insertionValide\">";

@@ -7,7 +7,7 @@ class ProposeManager{
 		}
     public function add($propose){
         $requete = $this->db->prepare(
-				'INSERT INTO propose (par_num, per_num, pro_date, pro_time, pro_place, pro_sens) VALUES (:par_num, :per_num, :pro_date, :pro_time, :pro_place, :pro_sens);');
+				'INSERT INTO PROPOSE (par_num, per_num, pro_date, pro_time, pro_place, pro_sens) VALUES (:par_num, :per_num, :pro_date, :pro_time, :pro_place, :pro_sens);');
 
 				$requete->bindValue(':par_num',$propose->getParNum());
         $requete->bindValue(':per_num',$propose->getPerNum());
@@ -20,12 +20,12 @@ class ProposeManager{
 				return $retour;
     }
 
-    public function getAllTrajets($vil_dep, $vil_arr, $date_min, $date_max, $heure_dep){
+    public function getAllTrajets($vilDep, $vilArr, $dateDepMin, $dateDepMax, $heureDep){
         $listeTrajets = array();
 
         $sql = 'SELECT vil_nom1, vil_nom2, pro_date, pro_time, pro_place, per_nom, per_prenom FROM propose pr, personne pe, ville v1, parcours pa, ville v2
-        WHERE pr.par_num=pa.par_num AND pe.per_num=pr.per_num AND pa.vil_num1=v1.vil_num AND pa.vil_num2=v2.vil_num
-				AND p.vil_num1 ='.$vil_dep.' AND p.vil_num2='.$vil_arr.' AND pro_date >='.$datDepMin.' AND pro_date <='.$date_max.' AND $pro_time >='.$heure_dep;
+        WHERE pr.par_num = pa.par_num AND pe.per_num = pr.per_num AND pa.vil_num1 = v1.vil_num AND pa.vil_num2 = v2.vil_num
+				AND p.vil_num1 = '.$vil_dep.' AND p.vil_num2 = '.$vil_arr.' AND pro_date >= '.$datDepMin.' AND pro_date <= '.$dateDepMax.' AND $pro_time >= '.$heureDep;
 
         $requete = $this->db->prepare($sql);
         $requete->execute();
@@ -37,21 +37,21 @@ class ProposeManager{
         return $listeTrajets;
     }
 
-		public function printTrajet($par_num, $pro_sens, $pro_date, $precision, $pro_time){
+		public function afficheTrajet($parnum, $sensparcours, $date, $precision, $heure){
 	    $listePropose = array();
-	    $sql = "SELECT pro_date, pro_time, pro_place, per_num FROM propose WHERE par_num = :par_num AND pro_sens = :pro_sens AND DATE(pro_date) = :date1
-	            OR DATE(pro_date) = date_add(:date2, INTERVAL :precision1 DAY)
-	            OR DATE(pro_date) = date_dub(:date3, INTERVAL :precision2 DAY)
-	            AND TIME(pro_time) >= :pro_time ";
+	    $sql = "SELECT pro_date, pro_time, pro_place, per_num FROM propose WHERE par_num = :parnum AND pro_sens = :sensparcours AND DATE(pro_date) = :date1
+	            OR DATE(pro_date) = DATE_ADD(:date2, INTERVAL :precision1 DAY)
+	            OR DATE(pro_date) = DATE_SUB(:date3, INTERVAL :precision2 DAY)
+	            AND TIME(pro_time) >= :heure";
 	    $req = $this->db->prepare($sql);
-	    $req->bindValue(':par_num',$par_num);
-	    $req->bindValue(':pro_sens',$pro_sens);
-	    $req->bindValue(':date1',$pro_date);
-	    $req->bindValue(':date2',$pro_date);
-	    $req->bindValue(':date3',$pro_date);
+	    $req->bindValue(':parnum',$parnum);
+	    $req->bindValue(':sensparcours',$sensparcours);
+	    $req->bindValue(':date1',$date);
+	    $req->bindValue(':date2',$date);
+	    $req->bindValue(':date3',$date);
 	    $req->bindValue(':precision1',$precision);
 	    $req->bindValue(':precision2',$precision);
-	    $req->bindValue(':pro_time', $pro_time);
+	    $req->bindValue(':heure', $heure);
 	    $req->execute();
 
 	    while($propose = $req->fetch(PDO::FETCH_OBJ)){
@@ -61,8 +61,8 @@ class ProposeManager{
 	    return $listePropose;
 	  }
 
-    public function getParcoursNum($vil_dep, $vil_arr) {
-      $sql = "SELECT par_num FROM parcours WHERE vil_num1 = ".$vil_dep." AND vil_num2 = ".$vil_arr;
+    public function getParcoursNum($villeDepart, $villeArrivee) {
+      $sql = "SELECT par_num FROM parcours WHERE vil_num1 = ".$villeDepart." AND vil_num2 = ".$villeArrivee;
 
 			$sql;
 
@@ -70,7 +70,7 @@ class ProposeManager{
       $requete->execute();
 
       if ($requete->rowCount() == 0) {
-        $sql = "SELECT par_num FROM parcours WHERE vil_num1 = ".$vil_arr." AND vil_num2 = ".$vil_dep;
+        $sql = "SELECT par_num FROM parcours WHERE vil_num1 = ".$villeArrivee." AND vil_num2 = ".$villeDepart;
 
         $requete = $this->db->prepare($sql);
         $requete->execute();
@@ -81,8 +81,8 @@ class ProposeManager{
       return $numParc->par_num;
     }
 
-    public function getProSens($vil_dep, $vil_arr) {
-      $sql = "SELECT par_num FROM parcours WHERE vil_num1 =". $vil_dep." AND vil_num2 = ".$vil_arr;
+    public function getProSens($villeDepart, $villeArrivee) {
+      $sql = "SELECT par_num FROM parcours WHERE vil_num1 =". $villeDepart." AND vil_num2 = ".$villeArrivee;
 
       $requete = $this->db->prepare($sql);
       $requete->execute();
@@ -90,22 +90,23 @@ class ProposeManager{
       if ($requete->rowCount() == 0) {
         return 0;
       }
-      else{
+      else
+      {
         return 1;
       }
     }
 
-		public function getNumSens($vil_dep, $vil_arr){
+		public function recupParNumEtSens($vilnumdep, $vilnumarr){
 	    $sql = "SELECT par_num, 0 as pro_sens FROM parcours
-	            WHERE (vil_num1 = :vil_dep AND vil_num2 = :vil_arr)
+	            WHERE (vil_num1 = :vilnumdep AND vil_num2 = :vilnumarr)
 	            UNION
 	            SELECT par_num, 1 as pro_sens FROM parcours
-	            WHERE (vil_num1 = :vil_arr2 AND vil_num2 = :vil_dep2)";
+	            WHERE (vil_num1 = :vilnumarr2 AND vil_num2 = :vilnumdep2)";
 	    $req = $this->db->prepare($sql);
-	    $req->bindValue(':vil_dep',$vil_dep);
-	    $req->bindValue(':vil_arr',$vil_arr);
-	    $req->bindValue(':vil_dep2',$vil_dep);
-	    $req->bindValue(':vil_arr2',$vil_arr);
+	    $req->bindValue(':vilnumdep',$vilnumdep);
+	    $req->bindValue(':vilnumarr',$vilnumarr);
+	    $req->bindValue(':vilnumdep2',$vilnumdep);
+	    $req->bindValue(':vilnumarr2',$vilnumarr);
 	    $req->execute();
 
 	    $propose = $req->fetch(PDO::FETCH_OBJ);
@@ -114,7 +115,7 @@ class ProposeManager{
 
 	  }
 
-		public function vilArr($num){
+		public function recupVilleArrivee($num){
 	    $listeVillesRecup = array();
 	    $sql = "SELECT vil_num1 as vil_num, vil_nom FROM parcours pa JOIN propose p ON pa.par_num = p.par_num
 	    JOIN ville v ON v.vil_num = pa.vil_num1 WHERE pro_sens = 0 AND vil_num2 = :num
@@ -131,7 +132,7 @@ class ProposeManager{
 	    return $listeVillesRecup;
 	  }
 
-		public function getAllVilles () {
+		public function getAllVilleDepart () {
 			$listeVillesDep = array();
 
 			$sql = 'SELECT DISTINCT * FROM (SELECT vil_num, vil_nom FROM propose pr, ville, parcours pa WHERE  vil_num = vil_num1

@@ -38,6 +38,12 @@ class DivisionManager{
 			return $retour['div_nom'];
 		}
 
-		
+		/*public function getDepNomp($id){
+			$sql = $this->db->prepare("SELECT * FROM departement WHERE dep_num = (SELECT dep_num FROM etudiant WHERE div_num=:id)");
+			$sql->bindValue(':id', $id,PDO::PARAM_INT);
+			$sql->execute();
+			$retour=$sql->fetch(PDO::FETCH_ASSOC);
+			return $retour['dep_nom'];
+		}*/
 }
 ?>

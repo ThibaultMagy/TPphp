@@ -6,11 +6,11 @@ class AvisManager{
     $this->db = $db;
   }
 
-  public function getAvisPersonne($pernum){
+  public function getAvisPersonne($per_num){
     $listeAvis = array();
-    $sql='SELECT avi_comm FROM avis WHERE per_num = :pernum ORDER BY avi_date DESC';
+    $sql='SELECT avi_comm FROM avis WHERE per_num = :per_num ORDER BY avi_date DESC';
     $req = $this->db->prepare($sql);
-    $req->bindValue(':pernum', $pernum);
+    $req->bindValue(':per_num', $per_num->getPerNum());
     $req->execute();
 
     $avis = $req->fetch(PDO::FETCH_OBJ);
@@ -19,11 +19,11 @@ class AvisManager{
 
   }
 
-  public function getMoyenneAvisPersonne($pernum){
+  public function getMoyenneAvisPersonne($per_num){
     $listeAvis = array();
-    $sql='SELECT AVG(avi_note) as avi_note FROM avis WHERE per_num = :pernum ORDER BY avi_date DESC';
+    $sql='SELECT AVG(avi_note) as avi_note FROM avis WHERE per_num = :per_num ORDER BY avi_date DESC';
     $req = $this->db->prepare($sql);
-    $req->bindValue(':pernum', $pernum);
+    $req->bindValue(':per_num', $per_num);
     $req->execute();
 
     $avis = $req->fetch(PDO::FETCH_OBJ);

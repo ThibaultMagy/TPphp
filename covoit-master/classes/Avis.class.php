@@ -1,11 +1,11 @@
 <?php
 class Avis{
-  private $pernum;
-  private $perpernum;
-  private $parnum;
-  private $avicom;
-  private $avinote;
-  private $avidate;
+  private $per_num;
+  private $per_per_num;
+  private $par_num;
+  private $avi_comm;
+  private $avi_note;
+  private $avi_date;
 
   public function __construct($valeurs = array()){
     if(!empty($valeurs)){
@@ -18,11 +18,11 @@ class Avis{
       switch($attribut){
         case 'per_num': $this->setPerNum($valeur);
         break;
-        case 'per_per_num': $this->setPerPerNum($valeur);
+        case 'per_num': $this->setPerPerNum($valeur);
         break;
         case 'par_num': $this->setParNum($valeur);
         break;
-        case 'avi_comm': $this->setAvisCom($valeur);
+        case 'avi_comm': $this->setAvisComm($valeur);
         break;
         case 'avi_note': $this->setAvisNote($valeur);
         break;
@@ -33,51 +33,51 @@ class Avis{
   }
 
   public function setPerNum($num){
-    $this->pernum = $num;
+    $this->per_num = $num;
   }
 
   public function getPerNum(){
-    return $this->pernum;
+    return $this->per_num;
   }
 
   public function setPerPerNum($num){
-    $this->perpernum = $num;
+    $this->per_per_num = $num;
   }
 
   public function getPerPerNum(){
-    return $this->perpernum;
+    return $this->per_per_num;
   }
 
   public function setParNum($num){
-    $this->parnum = $num;
+    $this->par_num = $num;
   }
 
   public function getParNum(){
-    return $this->parnum;
+    return $this->par_num;
   }
 
-  public function setAvisCom($commentaire){
-    $this->avicom = $commentaire;
+  public function setAvisComm($commentaire){
+    $this->avi_comm = $commentaire;
   }
 
   public function getAvisCom(){
-    return $this->avicom;
+    return $this->avi_comm;
   }
 
   public function setAvisNote($note){
-    $this->avinote = $note;
+    $this->avi_note = $note;
   }
 
   public function getAvisNote(){
-    return $this->avinote;
+    return $this->avi_note;
   }
 
   public function setAvisDate($date){
-    $this->avidate = $date;
+    $this->avi_date = $date;
   }
 
   public function getAvisDate(){
-    return $this->avidate;
+    return $this->avi_date;
   }
 }
 

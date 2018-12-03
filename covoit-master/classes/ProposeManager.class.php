@@ -23,7 +23,7 @@ class ProposeManager{
     public function getAllTrajets($vilDep, $vilArr, $dateDepMin, $dateDepMax, $heureDep){
         $listeTrajets = array();
 
-        $sql = 'SELECT vil_nom1, vil_nom2, pro_date, pro_time, pro_place, per_nom, per_prenom FROM PROPOSE pr, PERSONNE pe, VILLE v1, PARCOURS pa, VILLE v2
+        $sql = 'SELECT vil_nom1, vil_nom2, pro_date, pro_time, pro_place, per_nom, per_prenom FROM propose pr, personne pe, ville v1, parcours pa, ville v2
         WHERE pr.par_num = pa.par_num AND pe.per_num = pr.per_num AND pa.vil_num1 = v1.vil_num AND pa.vil_num2 = v2.vil_num
 				AND p.vil_num1 = '.$vil_dep.' AND p.vil_num2 = '.$vil_arr.' AND pro_date >= '.$datDepMin.' AND pro_date <= '.$dateDepMax.' AND $pro_time >= '.$heureDep;
 
@@ -62,7 +62,7 @@ class ProposeManager{
 	  }
 
     public function getParcoursNum($villeDepart, $villeArrivee) {
-      $sql = "SELECT par_num FROM PARCOURS WHERE vil_num1 = ".$villeDepart." AND vil_num2 = ".$villeArrivee;
+      $sql = "SELECT par_num FROM parcours WHERE vil_num1 = ".$villeDepart." AND vil_num2 = ".$villeArrivee;
 
 			$sql;
 
@@ -70,7 +70,7 @@ class ProposeManager{
       $requete->execute();
 
       if ($requete->rowCount() == 0) {
-        $sql = "SELECT par_num FROM PARCOURS WHERE vil_num1 = ".$villeArrivee." AND vil_num2 = ".$villeDepart;
+        $sql = "SELECT par_num FROM parcours WHERE vil_num1 = ".$villeArrivee." AND vil_num2 = ".$villeDepart;
 
         $requete = $this->db->prepare($sql);
         $requete->execute();
@@ -82,7 +82,7 @@ class ProposeManager{
     }
 
     public function getProSens($villeDepart, $villeArrivee) {
-      $sql = "SELECT par_num FROM PARCOURS WHERE vil_num1 =". $villeDepart." AND vil_num2 = ".$villeArrivee;
+      $sql = "SELECT par_num FROM parcours WHERE vil_num1 =". $villeDepart." AND vil_num2 = ".$villeArrivee;
 
       $requete = $this->db->prepare($sql);
       $requete->execute();
@@ -135,9 +135,9 @@ class ProposeManager{
 		public function getAllVilleDepart () {
 			$listeVillesDep = array();
 
-			$sql = 'SELECT DISTINCT * FROM (SELECT vil_num, vil_nom FROM PROPOSE pr, VILLE, PARCOURS pa WHERE  vil_num = vil_num1
+			$sql = 'SELECT DISTINCT * FROM (SELECT vil_num, vil_nom FROM propose pr, ville, parcours pa WHERE  vil_num = vil_num1
 				AND pr.par_num = pa.par_num AND pro_sens = 0
-				UNION SELECT vil_num, vil_nom FROM PROPOSE pr, PARCOURS pa, VILLE WHERE vil_num = vil_num2 AND pr.par_num = pa.par_num AND pro_sens = 1)T1
+				UNION SELECT vil_num, vil_nom FROM propose pr, parcours pa, ville WHERE vil_num = vil_num2 AND pr.par_num = pa.par_num AND pro_sens = 1)T1
 				ORDER BY vil_nom';
 
 			$requete = $this->db->prepare($sql);

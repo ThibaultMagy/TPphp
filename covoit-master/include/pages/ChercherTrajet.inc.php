@@ -101,8 +101,8 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])) {
           <th>Nom du covoitureur</th>
         </tr>
         <?php foreach($listePropose as $propose){
-      $part1 = "Moyenne des avis : ".$avisManager->getMoyenneAvisPersonne($propose->getPerNum())->getAvisNote();
-      $part2 = "Dernier avis : ".$avisManager->getAvisPersonne($propose->getPerNum())->getAvisCom();
+      $part1 = "Moyenne des avis : ".$avisManager->getMoyenne($propose->getPerNum())->getAvisNote();
+      $part2 = "Dernier avis : ".$avisManager->getAvisPersonne($propose->getPerNum())->getAvisComm();
       $infobulle = $part1." ".$part2;
       ?>
       <tr>

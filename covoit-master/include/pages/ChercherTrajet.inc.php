@@ -54,7 +54,7 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])) {
       <select size="1" name="parc_vil2" id="parc_vil2" required>
         <option value="0"> Choisissez</option>
         <?php
-        $listeArrivee = $proposeManager->recupVilleArrivee($_POST["parc_vil1"]);
+        $listeArrivee = $proposeManager->vilArr($_POST["parc_vil1"]);
         foreach($listeArrivee as $ville) { ?>
           <option value="<?php echo $ville->getVilNum(); ?>"><?php echo $ville->getVilNom();?></option>
         <?php } ?>

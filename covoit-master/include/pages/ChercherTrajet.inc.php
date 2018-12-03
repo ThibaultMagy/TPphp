@@ -5,7 +5,7 @@ $villeManager = new VilleManager($pdo);
 $proposeManager = new ProposeManager($pdo);
 $parcoursManager = new ParcoursManager($pdo);
 
-if(empty($_POST["parc_vil1"]) && empty($_POST["vil_num2"])) {
+if(empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])) {
 ?>
 <h1> Rechercher un trajet </h1>
 <form action="" method="POST">
@@ -14,7 +14,7 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["vil_num2"])) {
     <select size="1" name="parc_vil1" id="parc_vil1" required>
       <option value="0">Choisissez</option>
       <?php
-      $listeDepart = $proposeManager->getAllVilles();
+      $listeDepart = $proposeManager->getAllVilleDepart();
       foreach($listeDepart as $ville) {?>
           <option value="<?php echo $ville->getVilNum();?>"> <?php echo $ville->getVilNom() ;?></option>
       <?php } ?>
@@ -23,14 +23,14 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["vil_num2"])) {
   <input class="subButton2" type="submit" value="Valider" required/>
   </form>
   <?php }
-  if(!empty($_POST["parc_vil1"]) && empty($_POST["vil_num2"])) {
-    $_SESSION["vil_num1"] = $_POST["parc_vil1"];
+  if(!empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])) {
+    $_SESSION["vilnum1"] = $_POST["parc_vil1"];
   ?>
   <h1> Rechercher un trajet </h1>
   <form action="" method="POST">
   <div class="formBloc">
-    <div class="labelinput"><label> Ville de départ : </label> <?php echo $villeManager->getVille($_POST["parc_vil1"])->getVilNom(); ?></div>
-    <div class="labelinput"><label > Date de départ : </label><input name="pro_date" id="pro_date" type="date" required></input></div>
+    <div class="labelinput"><label for="VilleDepart"> Ville de départ : </label> <?php echo $villeManager->getVille($_POST["parc_vil1"])->getVilNom(); ?></div>
+    <div class="labelinput"><label for="DateDepart"> Date de départ : </label><input name"pro_date" id="pro_date" type="date"></input></div>
     <div class="labelinput">
       <label for="depart">A partir de : </label>
       <select size="1" name="temps" id="temps" required>
@@ -51,10 +51,10 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["vil_num2"])) {
   <div class="formBloc">
     <div class="labelinput">
       <label for="VilleArrivee"> Ville d'arrivée : </label>
-      <select size="1" name="vil_num2" id="vil_num2" required>
+      <select size="1" name="parc_vil2" id="parc_vil2" required>
         <option value="0"> Choisissez</option>
         <?php
-        $listeArrivee = $proposeManager->vilArr($_POST["parc_vil1"]);
+        $listeArrivee = $proposeManager->recupVilleArrivee($_POST["parc_vil1"]);
         foreach($listeArrivee as $ville) { ?>
           <option value="<?php echo $ville->getVilNum(); ?>"><?php echo $ville->getVilNom();?></option>
         <?php } ?>
@@ -75,13 +75,13 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["vil_num2"])) {
 
   <?php
   }
-  if(empty($_POST["parc_vil1"]) && !empty($_POST["vil_num2"])) {
+  if(empty($_POST["parc_vil1"]) && !empty($_POST["parc_vil2"])) {
 
     $villeManager = new VilleManager($pdo);
     $personneManager = new PersonneManager($pdo);
     $avisManager = new AvisManager($pdo);
-    $propose = $proposeManager->getNumSens($_SESSION["vil_num1"],$_POST["vil_num2"]);
-    $listePropose = $proposeManager->printTrajet($propose->getPerNum(), $propose->getProSens(),$_POST["pro_date"], $_POST["precision"], $_POST["temps"]);
+    $propose = $proposeManager->recupParNumEtSens($_SESSION["vilnum1"],$_POST["parc_vil2"]);
+    $listePropose = $proposeManager->afficheTrajet($propose->getPerNum(), $propose->getProSens(),$_POST["pro_date"], $_POST["precision"], $_POST["temps"]);
     if(count($listePropose) == 0){
       ?>
       <h1> Rechercher un trajet </h1>
@@ -101,13 +101,13 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["vil_num2"])) {
           <th>Nom du covoitureur</th>
         </tr>
         <?php foreach($listePropose as $propose){
-      $part1 = "Moyenne des avis : ".$avisManager->getMoyenne($propose->getPerNum())->getAvisNote();
-      $part2 = "Dernier avis : ".$avisManager->getAvisPersonne($propose->getPerNum())->getAvisComm();
+      $part1 = "Moyenne des avis : ".$avisManager->getMoyenneAvisPersonne($propose->getPerNum())->getAvisNote();
+      $part2 = "Dernier avis : ".$avisManager->getAvisPersonne($propose->getPerNum())->getAvisCom();
       $infobulle = $part1." ".$part2;
       ?>
       <tr>
-        <td><?php echo $villeManager->getVille($_SESSION["vil_num1"])->getVilNom(); ?></td>
-        <td><?php echo $villeManager->getVille($_POST["vil_num2"])->getVilNom(); ?></td>
+        <td><?php echo $villeManager->getVille($_SESSION["vilnum1"])->getVilNom(); ?></td>
+        <td><?php echo $villeManager->getVille($_POST["parc_vil2"])->getVilNom(); ?></td>
         <td><?php echo getFrenchDate($propose->getProDate()); ?></td>
         <td><?php echo $propose->getProTime(); ?></td>
         <td><span title="<?php echo $infobulle ?>" class="tooltip"><?php echo $personneManager->getAllInfoPersonne($propose->getPerNum())->getPerNom()." ".$personneManager->getAllInfoPersonne($propose->getPerNum())->getPerPrenom(); ?></span></td>

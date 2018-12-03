@@ -29,12 +29,12 @@
 
   $login = $_POST["login"];
   $password = $_POST["passwd"];
-  $password_crypte = sha1($password.SALT);
+  $password_crypte = sha1(sha1($password).SALT);
 
   $personneManager = new PersonneManager($pdo);
   $isPersonne = $personneManager->isPersonne($login, $password_crypte);
   if($isPersonne){
-    $personne = $personneManager->getPers($login);
+    $personne = $personneManager->getPersonne($login);
     $_SESSION["log"] = $personne->getPerLogin();
     $_SESSION["idPers"] = $personne->getPerNum();
 ?>

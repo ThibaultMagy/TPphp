@@ -81,7 +81,7 @@ public function getVilleNom($num) {
 	public function getVilleDispo($num){
 			$listeVilles = array();
 
-			$sql = "SELECT DISTINCT * FROM (SELECT v2.vil_num, v2.vil_nom FROM ville v1, PARCOURS p, ville v2
+			$sql = "SELECT DISTINCT * FROM (SELECT v2.vil_num, v2.vil_nom FROM ville v1, parcours p, ville v2
 				WHERE v1.vil_num = p.vil_num1 AND v2.vil_num = p.vil_num2 AND v1.vil_num = $num)T1
 				ORDER BY vil_nom";
 

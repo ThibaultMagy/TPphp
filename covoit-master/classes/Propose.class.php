@@ -9,27 +9,18 @@ class Propose{
 
 	public function __construct($valeurs = array()){
 		if (!empty($valeurs))
+				//print_r ($valeurs);
 				 $this->affecte($valeurs);
 	}
 
 	public function affecte($donnees){
 			foreach ($donnees as $attribut => $valeur){
 					switch ($attribut){
-							case 'par_num':
-								$this->setParNum($valeur);
-								break;
-							case 'per_num':
-								$this->setPerNum($valeur);
-								break;
-              case 'pro_date':
-								$this->setProDate($valeur);
-								break;
-              case 'pro_time':
-								$this->setProTime($valeur);
-								break;
-							case 'pro_place':
-								$this->setProPlace($valeur);
-								break;
+							case 'par_num': $this->setParNum($valeur); break;
+							case 'per_num': $this->setPerNum($valeur); break;
+              case 'pro_date': $this->setProDate($valeur); break;
+              case 'pro_time': $this->setProTime($valeur); break;
+							case 'pro_place': $this->setProPlace($valeur); break;
 							case 'pro_sens': $this->setProSens($valeur); break;
 					}
 			}
@@ -37,6 +28,9 @@ class Propose{
 
 	public function getParNum() {
 					return $this->par_num;
+	}
+	public function setParNum($id){
+					$this->par_num=$id;
 	}
 
   public function getPerNum() {
@@ -63,20 +57,15 @@ class Propose{
   public function getProPlace() {
           return $this->pro_place;
   }
-
-	public function setParNum($id){
-					$this->par_num=$id;
-	}
-
-  public function setProPlace($id){
-          $this->pro_place=$id;
+  public function setProPlace($nb){
+          $this->pro_place=$nb;
   }
 
   public function getProSens() {
           return $this->pro_sens;
   }
-  public function setProSens($id){
-          $this->pro_sens=$id;
+  public function setProSens($nb){
+          $this->pro_sens=$nb;
   }
 }
 ?>

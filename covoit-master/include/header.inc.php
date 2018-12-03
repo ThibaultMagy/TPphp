@@ -25,7 +25,6 @@
 			<div class="colonne">
 				Covoiturage de l'IUT,<br />Partagez plus que votre véhicule !!!
 			</div>
-      
     <div id="connect">
       <?php
         if(isset($_SESSION["log"])){

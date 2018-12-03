@@ -37,19 +37,14 @@ class PersonneManager{
 				$sql->bindValue(':id',$id,PDO::PARAM_STR);
 				$sql->execute();
 				$retour=$sql->fetch(PDO::FETCH_ASSOC);
-				$personne = new Personne($retour);
-				return $personne;
+				return $retour;
 			}
-
-			public function getPersonne($login){
-				$req = $this->db->prepare("SELECT per_prenom, per_num, per_login FROM personne WHERE per_login = :login");
-				$req->bindValue(':login', $login);
-				$req->execute();
-
-				$personne = $req->fetch(PDO::FETCH_OBJ);
-				$newPers = new Personne($personne);
-
-				return $newPers;
+			public function getPersonne($num) {
+				$sql = 'SELECT * FROM personne WHERE per_num = '.$num;
+				$requete = $this->db->prepare($sql);
+				$requete->execute();
+				$personne = new Personne($requete->fetch(PDO::FETCH_OBJ));
+				return $personne;
 			}
 
 

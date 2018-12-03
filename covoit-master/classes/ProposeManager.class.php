@@ -9,7 +9,7 @@ class ProposeManager{
         $requete = $this->db->prepare(
 				'INSERT INTO propose (par_num, per_num, pro_date, pro_time, pro_place, pro_sens) VALUES (:par_num, :per_num, :pro_date, :pro_time, :pro_place, :pro_sens);');
 
-				$requete->bindValue(':par_num',$propose->getpar_num());
+				$requete->bindValue(':par_num',$propose->getParNum());
         $requete->bindValue(':per_num',$propose->getPerNum());
         $requete->bindValue(':pro_date',$propose->getProDate());
         $requete->bindValue(':pro_time',$propose->getProTime());
@@ -95,7 +95,7 @@ class ProposeManager{
       }
     }
 
-		public function recuppar_numEtSens($vil_dep, $vil_arr){
+		public function getNumSens($vil_dep, $vil_arr){
 	    $sql = "SELECT par_num, 0 as pro_sens FROM parcours
 	            WHERE (vil_num1 = :vil_dep AND vil_num2 = :vil_arr)
 	            UNION

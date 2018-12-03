@@ -80,7 +80,7 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])) {
     $villeManager = new VilleManager($pdo);
     $personneManager = new PersonneManager($pdo);
     $avisManager = new AvisManager($pdo);
-    $propose = $proposeManager->recupParNumEtSens($_SESSION["vilnum1"],$_POST["parc_vil2"]);
+    $propose = $proposeManager->getNumSens($_SESSION["vilnum1"],$_POST["parc_vil2"]);
     $listePropose = $proposeManager->printTrajet($propose->getPerNum(), $propose->getProSens(),$_POST["pro_date"], $_POST["precision"], $_POST["temps"]);
     if(count($listePropose) == 0){
       ?>

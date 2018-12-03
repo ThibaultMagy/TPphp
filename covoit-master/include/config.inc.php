@@ -4,8 +4,8 @@
 
 define('DBHOST', "localhost");
 define('DBNAME', "Covoiturage");
-define('DBUSER', "ali");
-define('DBPASSWD', "ali");
+define('DBUSER', "bd");
+define('DBPASSWD', "bede");
 define('ENV','dev');
 define('SALT','48@!alsd');
 define('DBPORT',3306);

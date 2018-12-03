@@ -16,18 +16,24 @@ class Avis{
   public function affecte($donnees){
     foreach($donnees as $attribut => $valeur){
       switch($attribut){
-        case 'per_num': $this->setPerNum($valeur);
-        break;
-        case 'per_num': $this->setPerPerNum($valeur);
-        break;
-        case 'par_num': $this->setParNum($valeur);
-        break;
-        case 'avi_comm': $this->setAvisComm($valeur);
-        break;
-        case 'avi_note': $this->setAvisNote($valeur);
-        break;
-        case 'avi_date': $this->setAvisDate($valeur);
-        break;
+        case 'per_num':
+          $this->setPerNum($valeur);
+          break;
+        case 'per_num':
+          $this->setPerPerNum($valeur);
+          break;
+        case 'par_num':
+          $this->setParNum($valeur);
+          break;
+        case 'avi_comm':
+          $this->setAvisComm($valeur);
+          break;
+        case 'avi_note':
+          $this->setAvisNote($valeur);
+          break;
+        case 'avi_date':
+          $this->setAvisDate($valeur);
+          break;
       }
     }
   }

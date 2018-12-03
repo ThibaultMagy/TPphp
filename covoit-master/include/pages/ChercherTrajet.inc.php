@@ -81,7 +81,7 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])) {
     $personneManager = new PersonneManager($pdo);
     $avisManager = new AvisManager($pdo);
     $propose = $proposeManager->getNumSens($_SESSION["vilnum1"],$_POST["parc_vil2"]);
-    $listePropose = $proposeManager->printTrajet($propose->getPerNum(), $propose->getProSens(),$_POST["pro_date"], $_POST["precision"], $_POST["temps"]);
+    $listePropose = $proposeManager->printTrajet($propose->getParNum(), $propose->getProSens(),$_POST["pro_date"], $_POST["precision"], $_POST["temps"]);
     if(count($listePropose) == 0){
       ?>
       <h1> Rechercher un trajet </h1>

@@ -42,7 +42,7 @@ class ProposeManager{
 	    $sql = "SELECT pro_date, pro_time, pro_place, per_num FROM propose WHERE par_num = :par_num AND pro_sens = :pro_sens AND DATE(pro_date) = :date1
 	            OR DATE(pro_date) = date_add(:date2, INTERVAL :precision1 DAY)
 	            OR DATE(pro_date) = date_dub(:date3, INTERVAL :precision2 DAY)
-	            AND TIME(pro_time) >= :heure";
+	            AND TIME(pro_time) >= :pro_time ";
 	    $req = $this->db->prepare($sql);
 	    $req->bindValue(':par_num',$par_num);
 	    $req->bindValue(':pro_sens',$pro_sens);
@@ -51,7 +51,7 @@ class ProposeManager{
 	    $req->bindValue(':date3',$pro_date);
 	    $req->bindValue(':precision1',$precision);
 	    $req->bindValue(':precision2',$precision);
-	    $req->bindValue(':heure', $pro_time);
+	    $req->bindValue(':pro_time', $pro_time);
 	    $req->execute();
 
 	    while($propose = $req->fetch(PDO::FETCH_OBJ)){

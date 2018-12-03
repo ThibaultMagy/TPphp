@@ -76,7 +76,7 @@ class Propose{
           return $this->pro_sens;
   }
   public function setProSens($id){
-          $this->pro_sens=$nb;
+          $this->pro_sens=$id;
   }
 }
 ?>

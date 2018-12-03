@@ -14,7 +14,7 @@ if(empty($_POST["parc_vil1"]) && empty($_POST["parc_vil2"])) {
     <select size="1" name="parc_vil1" id="parc_vil1" required>
       <option value="0">Choisissez</option>
       <?php
-      $listeDepart = $proposeManager->getAllVilleDepart();
+      $listeDepart = $proposeManager->getAllVilles();
       foreach($listeDepart as $ville) {?>
           <option value="<?php echo $ville->getVilNum();?>"> <?php echo $ville->getVilNom() ;?></option>
       <?php } ?>

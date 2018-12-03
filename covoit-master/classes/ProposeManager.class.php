@@ -114,7 +114,7 @@ class ProposeManager{
 
 	  }
 
-		public function recupvil_arr($num){
+		public function vilArr($num){
 	    $listeVillesRecup = array();
 	    $sql = "SELECT vil_num1 as vil_num, vil_nom FROM parcours pa JOIN propose p ON pa.par_num = p.par_num
 	    JOIN ville v ON v.vil_num = pa.vil_num1 WHERE pro_sens = 0 AND vil_num2 = :num
@@ -131,7 +131,7 @@ class ProposeManager{
 	    return $listeVillesRecup;
 	  }
 
-		public function getAllvil_dep () {
+		public function getAllVilles () {
 			$listeVillesDep = array();
 
 			$sql = 'SELECT DISTINCT * FROM (SELECT vil_num, vil_nom FROM propose pr, ville, parcours pa WHERE  vil_num = vil_num1

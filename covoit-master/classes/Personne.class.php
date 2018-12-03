@@ -86,6 +86,7 @@ class Personne{
 		$this->per_login = $id;
 	}
 	public function setPerPwd($id){
+		//password_crypte = sha1(sha1($password).SALT);
 		$this->per_pwd = $id;
 	}
 
